@@ -37,7 +37,7 @@ class Register extends CI_Controller {
                 'userType' => 'user'
             );
             $this->session->set_userdata($session);
-            redirect('sessions');
+            redirect('home');
            // header('location:' . base_url() . 'register/user_profile/' . $result); //Register Success
         }
     }

@@ -1,4 +1,13 @@
-<section class="parallax fullscreen" style="background-image: url(<?= base_url() ?>front_assets/images/bg_login.png); top: 0; padding-top: 0px;">
+<style>
+    body{
+        background-image: url(<?= base_url() ?>front_assets/images/FAUXSKO21/Forescout_FAUXSKO21_Lounge_Page_Mockup.png);
+        background-attachment: fixed;
+        background-size: cover !important;
+        background-position: center center !important;
+    }
+</style>
+
+<section class="parallax fullscreen" style="top: 0; padding-top: 0px;">
     <div class="container container-fullscreen">
         <div class="text-middle">
             <div class="row">

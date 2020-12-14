@@ -2,6 +2,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
 <style>
+    body{
+        background-image: url(<?= base_url() ?>front_assets/images/FAUXSKO21/Forescout_FAUXSKO21_EXPO_PAGE_MOCKUP.png);
+        background-attachment: fixed;
+        background-size: cover !important;
+        background-position: center center !important;
+    }
+
     .icon-home {
         color: #f05d1f;
         font-size: 1.5em;
@@ -21,7 +28,7 @@
     }
 
 </style>
-<section class="parallax" style="background-image: url(<?= base_url() ?>front_assets/images/bg_login.jpg); top: 0; padding-top: 20px;">
+<section class="parallax" style="top: 0; padding-top: 20px;">
     <div class="container container-fullscreen">
         <div class="text-middle">
             <div class="row">

@@ -1,4 +1,11 @@
 <style>
+    body{
+        background-image: url(<?= base_url() ?>front_assets/images/FAUXSKO21/Forescout_FAUXSKO21_Session_Page_Mockup.png);
+        background-attachment: fixed;
+        background-size: cover !important;
+        background-position: center center !important;
+    }
+
     .post-info {
         margin-bottom: 0px; 
         opacity: 1; 
@@ -11,7 +18,7 @@
         visibility: hidden;
     }
     a:hover {
-        color: #000 !important;
+        color: #439ce4 !important;
     }
     section{
         padding: 25px 0px;
@@ -53,7 +60,7 @@
         color: #fff !important;
     }
 </style>
-<section class="parallax" style="background-image: url(<?= base_url() ?>front_assets/images/attend_background.png); top: 0; padding-top: 0px;">
+<section class="parallax" style="top: 0; padding-top: 0px;">
 <!--<section class="parallax" style="background-image: url(<?= base_url() ?>front_assets/images/Sessions_BG_screened.jpg); top: 0; padding-top: 0px;">-->
     <div class="container container-fullscreen" style="min-height: 700px;">
         <div class="">

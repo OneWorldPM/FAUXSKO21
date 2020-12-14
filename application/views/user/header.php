@@ -16,7 +16,7 @@
         <link href="<?= base_url() ?>front_assets/vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
 
         <!-- Template base -->
-        <link href="<?= base_url() ?>front_assets/css/theme-base.css?v=5" rel="stylesheet">
+        <link href="<?= base_url() ?>front_assets/css/theme-base.css?v=6" rel="stylesheet">
 
         <!-- Template elements -->
         <link href="<?= base_url() ?>front_assets/css/theme-elements.css" rel="stylesheet">
@@ -29,7 +29,7 @@
         <![endif]-->
 
         <!-- Template color -->
-        <link href="<?= base_url() ?>front_assets/css/color-variations/blue.css" rel="stylesheet" type="text/css" media="screen" title="blue">
+        <link href="<?= base_url() ?>front_assets/css/color-variations/blue.css?v=2" rel="stylesheet" type="text/css" media="screen" title="blue">
 
         <!-- LOAD GOOGLE FONTS -->
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,800,700,600%7CRaleway:100,300,600,700,800" rel="stylesheet" type="text/css" />

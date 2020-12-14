@@ -5,8 +5,8 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-        <link rel="shortcut icon" href="<?= base_url() ?>front_assets/images/favicon.png">
-        <title>Virtual Conference & Trade Show</title>
+        <link rel="shortcut icon" href="<?= base_url() ?>front_assets/images/FAUXSKO21/fauxsko_icon_transparent.png">
+        <title>Faux SKO 21</title>
         <!-- Bootstrap Core CSS -->
         <link href="<?= base_url() ?>front_assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="<?= base_url() ?>front_assets/vendor/fontawesome/css/font-awesome.min.css" type="text/css" rel="stylesheet">
@@ -17,7 +17,7 @@
         <link href="<?= base_url() ?>front_assets/vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
 
         <!-- Template base -->
-        <link href="<?= base_url() ?>front_assets/css/theme-base.css?v=5" rel="stylesheet">
+        <link href="<?= base_url() ?>front_assets/css/theme-base.css?v=6" rel="stylesheet">
 
         <!-- Template elements -->
         <link href="<?= base_url() ?>front_assets/css/theme-elements.css" rel="stylesheet">
@@ -30,7 +30,7 @@
         <![endif] -->
 
         <!-- Template color -->
-        <link href="<?= base_url() ?>front_assets/css/color-variations/blue.css" rel="stylesheet" type="text/css" media="screen" title="blue">
+        <link href="<?= base_url() ?>front_assets/css/color-variations/blue.css?v=2" rel="stylesheet" type="text/css" media="screen" title="blue">
 
         <!-- LOAD GOOGLE FONTS -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,700,600%7CRaleway:100,300,600,700,800" rel="stylesheet" type="text/css" />
@@ -77,7 +77,11 @@
             }
 
             .button.black-light {
-                border-color: #f05d1f;
+                border-color: #22a5da;
+            }
+
+            .logo{
+                cursor: pointer;
             }
 
             .logo2 {
@@ -113,7 +117,7 @@
                 height: max-content !important;
                 font-weight: 600;
                 font-size: 13px;
-                color: #000;
+                color: white;
             }
 
             #mainMenu2 ul li {
@@ -122,7 +126,7 @@
 
             #mainMenu2 ul li a:hover {
                 background-color: transparent;
-                color: #ff5e00;
+                color: #22a5da;
                 cursor: pointer;
             }
 
@@ -154,7 +158,7 @@
             }
 
             .toolboxCustomDrop li a:hover {
-                color: #ff5e00 !important;
+                color: #22a5da !important;
 
             }
 
@@ -227,7 +231,6 @@
             <!-- HEADER -->
             <header id="header" class="header-transparent header-sticky">
                 <div id="header-wrap">
-                    <div style="height: 4px;background-color: #f15a23;"></div>
                     <div class="container">
                         <!--LOGO-->
                         <?php
@@ -235,14 +238,14 @@
                             $profile_data = $this->common->get_user_details($this->session->userdata('cid'));
                             ?>
                             <div id="logo">
-                                <a href="#" class="logo" data-dark-logo="<?= base_url() ?>front_assets/images/logo_new.png" style="margin-top: 12px; cursor: auto">
-                                    <img src="<?= base_url() ?>front_assets/images/CCO_CORP_Logo_310wide.png" alt="CCO Logo">
+                                <a href="<?= base_url() ?>home" class="logo" data-dark-logo="<?= base_url() ?>front_assets/images/FAUXSKO21/fauxsko_icon_transparent.png" style="margin-top: 12px; cursor: pointer">
+                                    <img src="<?= base_url() ?>front_assets/images/FAUXSKO21/fauxsko_icon_transparent.png" alt="FAUX SKO 21">
                                 </a>
                             </div>
                         <?php } else { ?>
                             <div id="logo">
-                                <a href="#" class="logo" data-dark-logo="<?= base_url() ?>front_assets/images/logo_new.png">
-                                    <img src="<?= base_url() ?>front_assets/images/CCO_CORP_Logo_310wide.png" alt="CCO Logo">
+                                <a href="<?= base_url() ?>home" class="logo" data-dark-logo="<?= base_url() ?>front_assets/images/FAUXSKO21/fauxsko_icon_transparent.png">
+                                    <img src="<?= base_url() ?>front_assets/images/FAUXSKO21/fauxsko_icon_transparent.png" alt="FAUX SKO 21">
                                 </a>
                             </div>
                         <?php } ?>
@@ -316,9 +319,23 @@
                                                 </li>
                                             <?php } ?>
                                         </ul>
+
                                         <ul class="main-menu nav navbar-nav navbar-right">
-                                            <li><a href="https://yourconference.live/support/submit_ticket" target="_blank">Assistance</a></li>
+                                            <li><a href="https://yourconference.live/support/submit_ticket" target="_blank">HELP DESK</a></li>
                                         </ul>
+
+                                        <ul class="main-menu nav navbar-nav navbar-right">
+                                            <li><a href="<?= base_url() ?>lounge">LOUNGE</a></li>
+                                        </ul>
+
+                                        <ul class="main-menu nav navbar-nav navbar-right">
+                                            <li><a href="<?= base_url() ?>sponsor">EXPO</a></li>
+                                        </ul>
+
+                                        <ul class="main-menu nav navbar-nav navbar-right">
+                                            <li><a href="<?= base_url() ?>sessions">SESSIONS</a></li>
+                                        </ul>
+
                                         <ul class="main-menu nav navbar-nav navbar-right">
                                             <?php
                                             if (isset($attendee_view_links_status) && isset($attendee_view_links_status)) {
@@ -330,43 +347,43 @@
                                             }
                                             ?>
                                         </ul>
-                                        <ul class="nav navbar-nav navbar-right">
-                                            <li class="sticky_resources_open" data-type="resourcesSticky"><a data-type2="off">Recursos</a></li>
-                                            <li>
-                                                <a target="_blank">Herramienta</a>
-                                                <ul class="toolboxCustomDrop">
-                                                    <?php
-                                                    if (isset($right_bar) && isset($tool_box_status)) {
-                                                        if ($tool_box_status == "1") {
-                                                            if (sessionRightBarControl($right_bar, "questions")) {
-                                                                ?>
-                                                                <li data-type="questionsSticky"><a data-type2="off"><i class="fa fa-question" aria-hidden="true"></i> Preguntas</a></li>
-                                                                <?php
-                                                            }
-                                                            if (sessionRightBarControl($right_bar, "notes")) {
-                                                                ?>
-                                                                <li data-type="notesSticky"><a data-type2="off"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> TAKE NOTES</a></li>
-                                                                <?php
-                                                            }
-                                                            if (sessionRightBarControl($right_bar, "chat")) {
-                                                                ?>
-                                                                <li data-type="messagesSticky"><a data-type2="off"><i class="fa fa-comments" aria-hidden="true"></i> CHAT</a></li>
-                                                                <?php
-                                                            }
-                                                            if (sessionRightBarControl($right_bar, "resources")) {
-                                                                ?>
-                                                                <li data-type="resourcesSticky"><a data-type2="off"><i class="fa fa-paperclip" aria-hidden="true"></i> Recursos</a></li>
-                                                                <?php
-                                                            }
-                                                        }
-                                                    }
-                                                    ?>
-                                                </ul>
-                                            </li>
-                                        </ul>
+<!--                                        <ul class="nav navbar-nav navbar-right">-->
+<!--                                            <li class="sticky_resources_open" data-type="resourcesSticky"><a data-type2="off">Recursos</a></li>-->
+<!--                                            <li>-->
+<!--                                                <a target="_blank">Herramienta</a>-->
+<!--                                                <ul class="toolboxCustomDrop">-->
+<!--                                                    --><?php
+//                                                    if (isset($right_bar) && isset($tool_box_status)) {
+//                                                        if ($tool_box_status == "1") {
+//                                                            if (sessionRightBarControl($right_bar, "questions")) {
+//                                                                ?>
+<!--                                                                <li data-type="questionsSticky"><a data-type2="off"><i class="fa fa-question" aria-hidden="true"></i> Preguntas</a></li>-->
+<!--                                                                --><?php
+//                                                            }
+//                                                            if (sessionRightBarControl($right_bar, "notes")) {
+//                                                                ?>
+<!--                                                                <li data-type="notesSticky"><a data-type2="off"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> TAKE NOTES</a></li>-->
+<!--                                                                --><?php
+//                                                            }
+//                                                            if (sessionRightBarControl($right_bar, "chat")) {
+//                                                                ?>
+<!--                                                                <li data-type="messagesSticky"><a data-type2="off"><i class="fa fa-comments" aria-hidden="true"></i> CHAT</a></li>-->
+<!--                                                                --><?php
+//                                                            }
+//                                                            if (sessionRightBarControl($right_bar, "resources")) {
+//                                                                ?>
+<!--                                                                <li data-type="resourcesSticky"><a data-type2="off"><i class="fa fa-paperclip" aria-hidden="true"></i> Recursos</a></li>-->
+<!--                                                                --><?php
+//                                                            }
+//                                                        }
+//                                                    }
+//                                                    ?>
+<!--                                                </ul>-->
+<!--                                            </li>-->
+<!--                                        </ul>-->
                                     <?php } else { ?>
                                         <ul class="main-menu nav navbar-nav navbar-right">
-                                            <li><a href="https://yourconference.live/support/submit_ticket" target="_blank">Assistance</a></li>
+                                            <li><a href="https://yourconference.live/support/submit_ticket" target="_blank">HELP DESK</a></li>
                                         </ul>
                                     <?php } ?>
                                 </nav>

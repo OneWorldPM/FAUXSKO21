@@ -3,6 +3,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
 <link href="<?= base_url() ?>assets/lounge/lounge.css?v=<?= rand(200, 300) ?>" rel="stylesheet">
 <style>
+    body{
+        background-image: url(<?= base_url() ?>front_assets/images/FAUXSKO21/Forescout_FAUXSKO21_Lounge_Page_Mockup.png);
+        background-attachment: fixed;
+        background-size: cover !important;
+        background-position: center center !important;
+    }
+
     .icon-home {
         color: #ae0201;
         font-size: 1.5em;
@@ -89,7 +96,7 @@
         }
     }
 </style>
-<section class="parallax" style="background-image: url(<?= base_url() ?>front_assets/images/lounge-bg.jpg);">
+<section class="parallax">
     <div class="container container-fullscreen" id="home_first_section">
         <div class="row">
             <div class="col-md-12" style="text-align: -webkit-center; text-align: -moz-center; margin-left: 45px;">
