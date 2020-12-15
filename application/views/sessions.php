@@ -25,7 +25,7 @@
     }
 
     .icon-home {
-        color: #f05d1f;
+        color: #002f70;
         font-size: 1.5em;
         font-weight: 700;
         vertical-align: middle;
@@ -44,7 +44,7 @@
     }
 
     .box_home_active {
-        background-color: #f05d1f;
+        background-color: #002f70;
         border-radius: 20px;
         max-width: 250px;
         min-width: 250px;
@@ -56,7 +56,7 @@
     }
 
     .box-home:hover {
-        background-color: #f05d1f;
+        background-color: #002f70;
         color: #fff !important;
     }
 </style>
@@ -116,7 +116,7 @@
 
                                                 <div class="post-title">
                                                     <h6 style="font-weight: 600"><?= $val->sessions_date . ' ' . date("h:i A", strtotime($val->time_slot)) . ' - ' . date("h:i A", strtotime($val->end_time)) ?></h6>
-                                                    <h3><a href="<?= base_url() ?>sessions/attend/<?= $val->sessions_id ?>" style="color: #f05d1f; font-weight: 900;"><?= $val->session_title ?></a></h3>
+                                                    <h3><a href="<?= base_url() ?>sessions/attend/<?= $val->sessions_id ?>" style="color: #0048ac; font-weight: 900;"><?= $val->session_title ?></a></h3>
                                                 </div>
                                                 <?php
                                                 if (isset($val->presenter) && !empty($val->presenter)) {
@@ -130,7 +130,7 @@
                                                 ?>
                                                 <div class="post-description">
                                                     <p style="margin-bottom: 10px;"><?= $val->sessions_description ?></p>
-                                                    <a class="button black-light button-3d rounded right" style="margin: 0px 0;" href="<?= base_url() ?>sessions/attend/<?= $val->sessions_id ?>"><span>Attend</span></a>
+                                                    <a class="button black-light button-3d rounded right" style="margin: 0px 0;background-color: #002f70;" href="<?= base_url() ?>sessions/attend/<?= $val->sessions_id ?>"><span>Attend</span></a>
                                                 </div>
                                             </div>
                                         </div>

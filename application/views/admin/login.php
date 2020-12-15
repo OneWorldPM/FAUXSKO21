@@ -30,7 +30,7 @@
         <link href="<?= base_url() ?>assets/vendor/switchery/switchery.min.css" rel="stylesheet" media="screen">
         <!-- end: MAIN CSS -->
         <!-- start: CLIP-TWO CSS -->
-        <link rel="stylesheet" href="<?= base_url() ?>assets/css/styles.css">
+        <link rel="stylesheet" href="<?= base_url() ?>assets/css/styles.css?v=2">
         <link rel="stylesheet" href="<?= base_url() ?>assets/css/plugins.css">
         <link rel="stylesheet" href="<?= base_url() ?>assets/css/themes/theme-1.css" id="skin_color" />
         <!-- end: CLIP-TWO CSS -->
@@ -80,7 +80,7 @@
                     <form class="form-login" id="frm_login" name="frm_login" method="post" action="<?= base_url() ?>admin/alogin/authentication">
                         <div class="row">
                             <div style="text-align: center">                           
-                                <img src="<?= base_url() ?>assets/images/logo.png" alt="admin" >
+                                <img src="<?= base_url() ?>front_assets/images/FAUXSKO21/Forescout_Logo_CCPage.png" alt="admin" >
                             </div>
                         </div>
                         <fieldset>

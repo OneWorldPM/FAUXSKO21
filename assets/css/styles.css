@@ -4794,7 +4794,7 @@ span.input-help > input {
 
 .input-icon > [class*="fa-"], .input-icon > [class*="ti-"] {
   bottom: 0;
-  color: #f05d1f;
+  color: #002f70;
   display: inline-block;
   left: 5px;
   line-height: 35px;
@@ -5808,13 +5808,13 @@ input[type="radio"], input[type="checkbox"] {
 }
 
 .btn-primary {
-  background-color: #f05d1f;
-  border-color: #f05d1f;
+  background-color: #002f70;
+  border-color: #0068f9;;
   color: #ffffff;
 }
 .open .btn-primary.dropdown-toggle {
-  background-color: #f05d1f;
-  border-color: #4da2ff;
+  background-color: #002f70;
+  border-color: #0068f9;;
 }
 .btn-primary:hover {
   background-color: #b2b7bb !important;

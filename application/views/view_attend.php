@@ -1,4 +1,11 @@
 <style>
+    body{
+        background-image: url(<?= base_url() ?>front_assets/images/FAUXSKO21/Forescout_FAUXSKO21_Lounge_Page_Mockup.png);
+        background-attachment: fixed;
+        background-size: cover !important;
+        background-position: center center !important;
+    }
+
     .progress-bar {
         height: 100%;
         padding: 3px;
@@ -42,7 +49,7 @@
         padding: 25px 0px;
     }
 </style>
-<section class="parallax" style="background-image: url(<?= base_url() ?>front_assets/images/attend_background.png); top: 0; padding-top: 0px;">
+<section class="parallax" style="top: 0; padding-top: 0px;">
     <div class="container container-fullscreen"> 
         <div class="text-middle">
             <div class="row">
@@ -67,7 +74,7 @@
                     <section class="content">
                         <div class="container" style=" background: rgba(250, 250, 250, 0.8);"> 
                             <div class="row p-b-40">
-                                <div class="col-md-12" style="background-color: #B2B7BB; margin-bottom: 10px;">
+                                <div class="col-md-12" style="background-color: #0470F8; margin-bottom: 10px;">
                                     <h3 style="margin-bottom: 5px; color: #fff; font-weight: 700; text-transform: uppercase;"><?= isset($sessions) ? $sessions->session_title : "" ?></h3>
                                 </div>    
                                 <div class="col-md-7 m-t-20" style="border-right: 1px solid;">
