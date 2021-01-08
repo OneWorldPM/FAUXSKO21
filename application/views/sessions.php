@@ -98,7 +98,7 @@
                 <div class="col-md-12">
                     <!-- CONTENT -->
                     <section class="content">
-                        <div class="container" style=" background: rgba(250, 250, 250, 0.8);"> 
+                        <div class="container" style=" background: rgba(250, 250, 250, 0.95);">
 
                             <!-- Blog post-->
                             <div class="post-content post-single"> 

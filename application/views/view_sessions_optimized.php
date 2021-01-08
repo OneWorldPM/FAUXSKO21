@@ -3,6 +3,11 @@
 <!-- Please add styles only in this CSS file, NOT directly on this HTML file -->
 <link href="<?= base_url() ?>front_assets/css/view_sessions.css?v=12" rel="stylesheet">
 
+<style>
+    .fluid-width-video-wrapper{
+        position: unset;
+    }
+</style>
 
 <section class="parallax" style="background: url('<?= base_url() ?>front_assets/images/pres_bg.jpg') no-repeat;">
     <!--<section class="parallax" style="background-image: url(<?= base_url() ?>front_assets/images/Sessions_BG_screened.jpg); top: 0; padding-top: 0px;">-->
@@ -20,9 +25,10 @@
 
                     <div id="embededVideo">
                         <div id="iframeDiv" class="row embed-responsive embed-responsive-16by9">
-                            <?= isset($sessions) ? '<iframe src="https://viewer.millicast.com/v2?streamId=pYVHx2/'.str_replace(' ', '', $sessions->embed_html_code).'&autoPlay=true&muted=true&disableFull=true" width="100%" height="100%"></iframe>' : "" ?>
+                            <div style="padding:56.25% 0 0 0;"><iframe src="https://player.vimeo.com/video/492170037?autoplay=1&title=0&byline=0&portrait=0" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+                            <!-- isset($sessions) ? '<iframe src="https://viewer.millicast.com/v2?streamId=pYVHx2/'.str_replace(' ', '', $sessions->embed_html_code).'&autoPlay=true&muted=true&disableFull=true" width="100%" height="100%"></iframe>' : "" -->
                         <div class="videoElement">
-                            <span id="btnFS" class="glyphicon glyphicon-resize-full" data-toggle="tooltip" title="Pantalla Completa"></span>
+                            <span id="btnFS" class="glyphicon glyphicon-resize-full" data-toggle="tooltip" title="Full Screen"></span>
                         </div>
                         </div>
                         <div class="modal fade" id="modal" tabindex="-1" role="modal" aria-labelledby="modal-label" aria-hidden="true" style="display: none; text-align: left;" data-keyboard="false" data-backdrop="static">
@@ -378,7 +384,7 @@ if (isset($sessions)) {
     var session_end_datetime =  new Date("<?= date('M d, yy', strtotime($sessions->sessions_date)) . ' ' . $sessions->end_time ?>");
 </script>
 <?= getSocketScript()?>
-<script src="<?= base_url() ?>front_assets/js/custom-fullscreen.js"></script>
+<script src="<?= base_url() ?>front_assets/js/custom-fullscreen.js?v=2"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@9.17.0/dist/sweetalert2.all.min.js"></script>
 
 <!-- Please add scripts only in this JS file, NOT directly on this HTML file -->

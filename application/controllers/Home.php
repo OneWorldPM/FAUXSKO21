@@ -21,9 +21,14 @@ class Home extends CI_Controller {
     }
 
     public function index() {
-        $this->load->view('header');
-        $this->load->view('home');
-        $this->load->view('footer');
+        //$this->load->view('header');
+        //$this->load->view('home');
+        //$this->load->view('footer');
+        $this->load->view('home-new');
+    }
+
+    public function newHome() {
+        $this->load->view('home-new');
     }
 
     public function notes() {
