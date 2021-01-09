@@ -69,4 +69,21 @@ class Home extends CI_Controller {
         header('location:' . base_url() . 'home/notes');
     }
 
+    public function sendSms()
+    {
+        $this->load->library('twilio');
+
+        $from = '+12065128449';
+        $to = '+16048033540';
+        $message = '1234 is your Your Conference authentication code for FauxSKO21 login.';
+
+        $response = $this->twilio->sms($from, $to, $message);
+
+
+        if($response->IsError)
+            echo 'Error: ' . $response->ErrorMessage;
+        else
+            echo 'Sent message to ' . $to;
+    }
+
 }

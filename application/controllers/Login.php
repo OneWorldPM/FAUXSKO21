@@ -9,9 +9,16 @@ class Login extends CI_Controller {
         parent::__construct();
         $this->common->set_timezone();
         $this->load->model('user/m_login', 'objlogin');
+
+        $this->load->library('user_agent');
     }
 
     public function index() {
+        $login_type = $this->session->userdata('userType');
+        if ($login_type == 'user') {
+            redirect('home');
+        }
+
         $this->load->view('landing-page');
         //$this->load->view('header-no-menu-bar');
         //$this->load->view('login');
@@ -19,6 +26,11 @@ class Login extends CI_Controller {
     }
 
     public function form() {
+        $login_type = $this->session->userdata('userType');
+        if ($login_type == 'user') {
+            redirect('home');
+        }
+
         $this->load->view('login-new');
     }
 
@@ -30,6 +42,7 @@ class Login extends CI_Controller {
         $username = $this->input->post('email');
         $password = $this->input->post('password');
 
+
         if (strlen(trim(preg_replace('/\xb2\xa0/', '', $username))) == 0 || strlen(trim(preg_replace('/\xb2\xa0/', '', $password))) == 0) {
             $this->session->set_flashdata('msg', '<div class="col-md-12 text-red" style="padding: 0 0 10px 0;">Please enter Username or Password</div><br>');
             redirect('login');
@@ -40,6 +53,34 @@ class Login extends CI_Controller {
             );
             $data = $this->objlogin->user_login($username,base64_encode($password));
             if ($data) {
+
+                //check for the cookie
+                if (!isset($_COOKIE["yc_trusted_device_id"]) ||
+                    (isset($_COOKIE["yc_trusted_device_id"]) && !($this->checkTrustedBrowsers($data['cust_id'], $_COOKIE["yc_trusted_device_id"]))))
+                {
+                    $phone = $this->getMaskedPhone($data['cust_id']);
+
+                    if (!$phone){
+                        $response = array(
+                            'status' => 'new_browser',
+                            'user_id' => $data['cust_id'],
+                            'masked_reg_mobile' => 'unset'
+                        );
+                    }else{
+                        $response = array(
+                            'status' => 'new_browser',
+                            'user_id' => $data['cust_id'],
+                            'masked_reg_mobile' => $phone
+                        );
+                    }
+
+
+
+                    echo json_encode($response);
+                    return;
+                }
+
+
                 $token = $this->objlogin->update_user_token($data['cust_id']);
                 $session = array(
                     'cid' => $data['cust_id'],
@@ -50,11 +91,23 @@ class Login extends CI_Controller {
                     'userType' => 'user'
                 );
                 $this->session->set_userdata($session);
-                redirect('home');
+
+                $response = array(
+                    'status' => 'success'
+                );
+
             } else {
-                $this->session->set_flashdata('msg', '<div class="col-md-12 text-red" style="padding: 0 0 10px 0;">Username or Password is Wrong.</div><br>');
-                redirect('login');
+                $response = array(
+                    'status' => 'failed',
+                    'msg' => 'Incorrect username or password!'
+                );
+
+                //$this->session->set_flashdata('msg', '<div class="col-md-12 text-red" style="padding: 0 0 10px 0;">Username or Password is Wrong.</div><br>');
+                //redirect('login');
             }
+
+            echo json_encode($response);
+            return;
         }
     }
 
@@ -208,6 +261,217 @@ class Login extends CI_Controller {
                 echo "User details not recieved from CCO";
             }
         }
+    }
+
+    private function checkTrustedBrowsers($user_id, $unique_id)
+    {
+        $this->db->select('*');
+        $this->db->from('trusted_devices');
+        $this->db->where("user_id ", $user_id);
+        $this->db->where("unique_id", $unique_id);
+        $result = $this->db->get();
+        if ($result->num_rows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private function setTrustedBrowsers($user_id, $unique_id)
+    {
+        $data = array(
+            'user_id' => $user_id,
+            'unique_id' => $unique_id
+        );
+
+        $this->db->insert('trusted_devices', $data);
+    }
+
+    private function getMaskedPhone($user_id)
+    {
+        $this->db->select('phone');
+        $this->db->from('customer_master');
+        $this->db->where("cust_id ", $user_id);
+        $result = $this->db->get();
+        if ($result->num_rows() > 0) {
+
+            $number = $result->result()[0]->phone;
+
+            if ($number == null || $number == '')
+                return false;
+
+            $middle_string ="";
+            $length = strlen($number);
+
+            if( $length < 9 ){
+
+                return false;
+                //return $length == 1 ? "*" : "*". substr($number,  - 1);
+
+            }
+            else{
+                $part_size = floor( $length / 3 ) ;
+                $middle_part_size = $length - ( $part_size * 2 );
+                for( $i=0; $i < $middle_part_size ; $i ++ ){
+                    $middle_string .= "*";
+                }
+
+                return  substr($number, 0, $part_size ) . $middle_string  . substr($number,  - $part_size );
+            }
+
+        } else {
+            return false;
+        }
+    }
+
+    private function getPhone($user_id)
+    {
+        $this->db->select('phone');
+        $this->db->from('customer_master');
+        $this->db->where("cust_id ", $user_id);
+        $result = $this->db->get();
+        if ($result->num_rows() > 0) {
+
+            $phone = $result->result()[0]->phone;
+
+            if ($phone == null || $phone == '' || strlen($phone < 9))
+                return false;
+
+            return $phone;
+
+        } else {
+            return false;
+        }
+    }
+
+    public function sendLoginOtp($user_id, $method='sms')
+    {
+        $phone = $this->getPhone($user_id);
+
+        if ($method == 'sms')
+        {
+            $otp = rand ( 1000 , 9999 );
+
+            $this->load->library('twilio');
+
+            $from = '+12065128449';
+            $to = $phone;
+            $message = $otp.' is your Your Conference authentication code for FauxSKO21 login.';
+
+            $response = $this->twilio->sms($from, $to, $message);
+
+
+            if($response->IsError)
+            {
+                $response = array(
+                    'status' => 'failed',
+                    'msg' => $response->ErrorMessage
+                );
+
+                echo json_encode($response);
+            }else{
+
+                $this->db->set('otp', $otp);
+                $this->db->set('otp_created', date('Y-m-d H:i:s'));
+                $this->db->where('cust_id', $user_id);
+                $this->db->update('customer_master');
+
+                $response = array(
+                    'status' => 'success',
+                    'msg' => "OTP was sent!"
+                );
+                echo json_encode($response);
+            }
+
+            return;
+        }
+    }
+
+    public function verifyOtp()
+    {
+        $user_id_input = $this->input->post()['user_id'];
+        $otp_input = $this->input->post()['otp'];
+        $trust_check_input = $this->input->post()['trust_check'];
+
+        $response = array();
+
+        $this->db->select('*');
+        $this->db->from('customer_master');
+        $this->db->where("cust_id ", $user_id_input);
+        $result = $this->db->get();
+        if ($result->num_rows() > 0) {
+
+            $otp = $result->result()[0]->otp;
+            $otp_created = $result->result()[0]->otp_created;
+
+
+            if ($otp == $otp_input)
+            {
+                $otp_created_on = DateTime::createFromFormat('Y-m-d H:i:s', $otp_created);
+                $now = new Datetime('now');
+
+                $otp_created_before_min = abs( $otp_created_on->getTimestamp() - $now->getTimestamp() ) / 60;
+
+                if ($otp_created_before_min < 6)
+                {
+                    $response['trusted_browser'] = 'false';
+
+                    if ($trust_check_input == 'yes')
+                    {
+                        //generate unique id
+                        $unique_id = bin2hex (openssl_random_pseudo_bytes (64));
+
+                        setcookie ("yc_trusted_device_id", $unique_id);
+
+                        $data = array(
+                            'user_id' => $result->result()[0]->cust_id,
+                            'unique_id' => $unique_id,
+                            'browser' => $this->agent->browser(),
+                            'os' => $this->agent->platform(),
+                            'ip' => $this->input->ip_address(),
+                            'date_time' => date('Y-m-d H:i:s')
+                        );
+
+                        $this->db->insert('trusted_devices', $data);
+
+                        $response['trusted_browser'] = 'true';
+                    }
+
+                    $this->db->set('otp', null);
+                    $this->db->set('otp_created', null);
+                    $this->db->where('cust_id', $result->result()[0]->cust_id);
+                    $this->db->update('customer_master');
+
+                    $token = $this->objlogin->update_user_token($result->result()[0]->cust_id);
+                    $session = array(
+                        'cid' => $result->result()[0]->cust_id,
+                        'cname' => $result->result()[0]->first_name,
+                        'fullname' => $result->result()[0]->last_name,
+                        'email' => $result->result()[0]->email,
+                        'token' => $token,
+                        'userType' => 'user'
+                    );
+                    $this->session->set_userdata($session);
+
+
+                    $response['status'] = 'success';
+
+                }else{
+                    $response['status'] = 'failed';
+                    $response['msg'] = 'OTP expired!';
+                }
+            }else{
+                $response['status'] = 'failed';
+                $response['msg'] = 'Incorrect OTP!';
+            }
+
+        } else {
+            $response['status'] = 'failed';
+            $response['msg'] = 'User not found!';
+        }
+
+        echo json_encode($response);
+        return;
     }
 
 }
