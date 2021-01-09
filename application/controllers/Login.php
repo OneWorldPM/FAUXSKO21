@@ -346,7 +346,14 @@ class Login extends CI_Controller {
 
     public function sendLoginOtp($user_id, $method='sms')
     {
-        $phone = $this->getPhone($user_id);
+        if (isset($this->input->post()['mobile_no']) && $this->input->post()['mobile_no'] != null && $this->input->post()['mobile_no'] != '' )
+        {
+            $phone = "+".$this->input->post()['mobile_country_code'].$this->input->post()['mobile_no'];
+            $addPhone = true;
+        }else{
+            $phone = $this->getPhone($user_id);
+            $addPhone = false;
+        }
 
         if ($method == 'sms')
         {
@@ -378,6 +385,7 @@ class Login extends CI_Controller {
 
                 $response = array(
                     'status' => 'success',
+                    'addPhone' => $addPhone,
                     'msg' => "OTP was sent!"
                 );
                 echo json_encode($response);
@@ -392,6 +400,8 @@ class Login extends CI_Controller {
         $user_id_input = $this->input->post()['user_id'];
         $otp_input = $this->input->post()['otp'];
         $trust_check_input = $this->input->post()['trust_check'];
+
+        $addPhone = $this->input->post()['addPhone'];
 
         $response = array();
 
@@ -439,6 +449,8 @@ class Login extends CI_Controller {
 
                     $this->db->set('otp', null);
                     $this->db->set('otp_created', null);
+                    if ($addPhone != '')
+                        $this->db->set('phone', $addPhone);
                     $this->db->where('cust_id', $result->result()[0]->cust_id);
                     $this->db->update('customer_master');
 

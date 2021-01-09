@@ -65,11 +65,9 @@
                 {
                     if (data.masked_reg_mobile == 'unset')
                     {
-                        Swal.fire(
-                            'Problem!',
-                            'You have no or incorrect mobile number registered with us!',
-                            'error'
-                        );
+                        $('.send-otp-sms-btn').attr('user_id', data.user_id);
+                        $('.verify-browser-btn').attr('user_id', data.user_id);
+                        $('#addMobileModal').modal('show');
 
                     }else{
                         $('.send-otp-sms-btn').attr('user_id', data.user_id);
@@ -128,24 +126,65 @@
 
     $('.send-otp-sms-btn').on('click', function () {
 
-        $('.send-otp-sms-btn').prop("disabled", true);
-        $('.send-otp-sms-btn').off('click');
+        if ($(this).prop('disabled') == true)
+        {
+            return false;
+        }
 
-        $.get( base_url+"login/sendLoginOtp/"+$(this).attr('user_id'), function(data) {
-            data = JSON.parse(data);
+        let mobile_country_code = null;
+        let mobile_no = null;
+        let action = null;
 
-            if (data.status == 'failed')
+        if ($(this).attr('action') == 'add-mobile')
+        {
+            let action = 'add-mobile';
+
+            let mobile_country_code = $('#countryCode').val();
+            let mobile_no = $('#mobile_no').val();
+
+            if (mobile_no == '')
             {
-                Swal.fire(
-                    'Problem!',
-                    data.msg,
-                    'error'
-                );
-            }else{
-
-                $('#afterOtp').show();
+                toastr.error("You need to enter your phone number!");
+                return false;
             }
-        })
+
+            if (mobile_no.length < 9)
+            {
+                toastr.error("Phone number should be at least 9 digits!");
+                return false;
+            }
+        }
+
+
+        $('.send-otp-sms-btn').prop("disabled", true);
+
+        $.post( base_url+"login/sendLoginOtp/"+$(this).attr('user_id'),
+            {
+                mobile_country_code: $('#countryCode').val(),
+                mobile_no: $('#mobile_no').val()
+            })
+            .done(function( data ) {
+                data = JSON.parse(data);
+
+                if (data.status == 'failed')
+                {
+                    Swal.fire(
+                        'Problem!',
+                        data.msg,
+                        'error'
+                    );
+
+                    $('.send-otp-sms-btn').prop("disabled", false);
+                }else{
+
+                    if (data.addPhone == true)
+                    {
+                        $('#afterOtpAddMob').show();
+                    }else{
+                        $('#afterOtp').show();
+                    }
+                }
+            })
             .fail(function() {
                 Swal.fire(
                     'Problem!',
@@ -159,9 +198,14 @@
     $('.verify-browser-btn').on('click', function () {
 
         let user_id = $(this).attr('user_id');
-        let otp = $('#partitioned').val();
-        let trust_check = ($('#trust_browser_check').is(":checked"))?'yes':'no';
 
+        let otp = ($(this).attr('action') == 'add-mobile')?$('#addMobileOtpInput').val():$('#otpInput').val();
+
+        let addPhone = ($(this).attr('action') == 'add-mobile')?'+'+$('#countryCode').val()+$('#mobile_no').val():'';
+
+        let trust_check = ($(this).attr('action') == 'add-mobile')?($('#trust_browser_check1').is(":checked"))?'yes':'no':($('#trust_browser_check2').is(":checked"))?'yes':'no';
+
+        console.log(otp);
         if (otp == '' || otp.length < 4)
         {
             toastr.error("You need to enter the 4 digit OTP!");
@@ -172,7 +216,8 @@
             {
                 user_id: user_id,
                 otp: otp,
-                trust_check: trust_check
+                trust_check: trust_check,
+                addPhone: addPhone
             })
             .done(function( data ) {
                 data = JSON.parse(data);
@@ -208,13 +253,22 @@
 
 
 
-    var obj = document.getElementById('partitioned');
-    obj.addEventListener('keydown', stopCarret);
-    obj.addEventListener('keyup', stopCarret);
+    var otp1 = document.getElementById('otpInput');
+    var otp2 = document.getElementById('addMobileOtpInput');
+    otp1.addEventListener('keydown', stopCarret1);
+    otp1.addEventListener('keyup', stopCarret1);
+    otp2.addEventListener('keydown', stopCarret2);
+    otp2.addEventListener('keyup', stopCarret2);
 
-    function stopCarret() {
-        if (obj.value.length > 3){
-            setCaretPosition(obj, 3);
+    function stopCarret1() {
+        if (otp1.value.length > 3){
+            setCaretPosition(otp1, 3);
+        }
+    }
+
+    function stopCarret2() {
+        if (otp2.value.length > 3){
+            setCaretPosition(otp2, 3);
         }
     }
 
