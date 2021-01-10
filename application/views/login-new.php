@@ -109,15 +109,19 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="otpModalLabel">Untrusted Browser!</h5>
+                <h5 class="modal-title" id="otpModalLabel">Unverified Browser</h5>
             </div>
             <div class="modal-body">
-                <p>We don't recognize this browser, you need to use a One-Time-Password(OTP) to verify the login!</p>
-                <p>We will send a One-Time-Password to your registered mobile number (<span id="masked_mobile_no"></span>)</p>
-                <button class="send-otp-sms-btn btn btn-sm btn-info m-t-5"><i class="fa fa-paper-plane" aria-hidden="true"></i> Send OTP</button>
+                <p>Your browser must be verified before participating in this event by using a One-Time-Password (OTP) verification code.</p>
+                <p id="mob-for-otp-txt">Click on the button below to send a code to your registered mobile phone (<span id="masked_mobile_no"></span>).</p>
+                <button id="otp-sms-btn" class="send-otp-sms-btn btn btn-sm btn-info m-t-5"><i class="fas fa-mobile-alt" otp-type="sms"></i> Send OTP</button>
+
+                <p id="email-for-otp-txt" style="display: none;">Click on the button below to send a code to your registered email (<span id="masked_email"></span>).</p>
+                <button id="otp-email-btn" class="send-otp-email-btn btn btn-sm btn-info m-t-5" style="display: none;" otp-type="email"><i class="fa fa-envelope" aria-hidden="true"></i> Send OTP via Email</button>
+
 
                 <div id="afterOtp" style="display: none">
-                    <p style="color: green;">OTP was sent and is valid for next 5 minutes!</p>
+                    <p style="color: green;">OTP was sent and is valid for next 5 minutes<span class="spam-warning" style="display: none">(check your spam box as well)</span>.</p>
 
                     <p style="margin-top: 30px;">Enter the OTP you received below</p>
                     <div id="divOuter">
@@ -136,6 +140,7 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <p class="other-opt-btn" style="color: #0000ae;cursor: pointer;">Other options</p>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
             </div>
         </div>
@@ -374,7 +379,7 @@
                     </optgroup>
                 </select>
                 <input type="text" id="mobile_no" class="form-control m-t-5" placeholder="Mobile number without country code">
-                <button class="send-otp-sms-btn btn btn-sm btn-info m-t-5 m-b-5" action="add-mobile"><i class="fa fa-paper-plane" aria-hidden="true"></i> Send OTP</button>
+                <button class="send-otp-sms-btn btn btn-sm btn-info m-t-5 m-b-5" action="add-mobile" otp-type="sms"><i class="fa fa-paper-plane" aria-hidden="true"></i> Send OTP</button>
 
                 <div id="afterOtpAddMob" style="display: none;">
                     <p style="color: green;">OTP was sent and is valid for next 5 minutes!</p>
@@ -396,6 +401,7 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <p class="email-otp-modal-btn" style="color: #0000ae;cursor: pointer;">I don't have a phone number</p>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
             </div>
         </div>
@@ -423,7 +429,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous"></script>
 
-<script src="<?=base_url()?>front_assets/login_template/js/main.js"></script>
+<script src="https://kit.fontawesome.com/fd91b3535c.js" crossorigin="anonymous"></script>
+
+<script src="<?=base_url()?>front_assets/login_template/js/main.js?v=2"></script>
 
 <script>
     let base_url = "<?=base_url()?>";

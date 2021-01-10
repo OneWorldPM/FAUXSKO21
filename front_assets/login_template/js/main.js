@@ -66,13 +66,23 @@
                     if (data.masked_reg_mobile == 'unset')
                     {
                         $('.send-otp-sms-btn').attr('user_id', data.user_id);
+                        $('.send-otp-email-btn').attr('user_id', data.user_id);
+
                         $('.verify-browser-btn').attr('user_id', data.user_id);
+
+                        $('#masked_email').text(data.masked_reg_email);
+
                         $('#addMobileModal').modal('show');
 
                     }else{
                         $('.send-otp-sms-btn').attr('user_id', data.user_id);
+                        $('.send-otp-email-btn').attr('user_id', data.user_id);
+
                         $('.verify-browser-btn').attr('user_id', data.user_id);
+
                         $('#masked_mobile_no').text(data.masked_reg_mobile);
+                        $('#masked_email').text(data.masked_reg_email);
+
                         $('#otpModal').modal('show');
                     }
 
@@ -124,12 +134,14 @@
         $(thisAlert).removeClass('alert-validate');
     }
 
-    $('.send-otp-sms-btn').on('click', function () {
+    $('.send-otp-sms-btn, .send-otp-email-btn').on('click', function () {
 
         if ($(this).prop('disabled') == true)
         {
             return false;
         }
+
+        let otpType = $(this).attr('otp-type');
 
         let mobile_country_code = null;
         let mobile_no = null;
@@ -144,13 +156,13 @@
 
             if (mobile_no == '')
             {
-                toastr.error("You need to enter your phone number!");
+                toastr.error("You need to enter your phone number.");
                 return false;
             }
 
             if (mobile_no.length < 9)
             {
-                toastr.error("Phone number should be at least 9 digits!");
+                toastr.error("Phone number should be at least 9 digits.");
                 return false;
             }
         }
@@ -158,7 +170,7 @@
 
         $('.send-otp-sms-btn').prop("disabled", true);
 
-        $.post( base_url+"login/sendLoginOtp/"+$(this).attr('user_id'),
+        $.post( base_url+"login/sendLoginOtp/"+$(this).attr('user_id')+"/"+otpType,
             {
                 mobile_country_code: $('#countryCode').val(),
                 mobile_no: $('#mobile_no').val()
@@ -181,6 +193,7 @@
                     {
                         $('#afterOtpAddMob').show();
                     }else{
+                        $('.spam-warning').show();
                         $('#afterOtp').show();
                     }
                 }
@@ -188,7 +201,7 @@
             .fail(function() {
                 Swal.fire(
                     'Problem!',
-                    "Unable to send the OTP, please try after some time!",
+                    "Unable to send the OTP, please try after some time.",
                     'error'
                 );
             })
@@ -208,7 +221,7 @@
         console.log(otp);
         if (otp == '' || otp.length < 4)
         {
-            toastr.error("You need to enter the 4 digit OTP!");
+            toastr.error("You need to enter the 4 digit OTP.");
             return false;
         }
 
@@ -226,13 +239,13 @@
                     if (data.trusted_browser == 'true'){
                         Swal.fire(
                             'Verified!',
-                            "This browser is verified and added to your trusted browsers list, we will redirect you to the home page in a moment!",
+                            "This browser is verified and added to your trusted browsers list, we will redirect you to the home page in a moment.",
                             'success'
                         );
                     }else{
                         Swal.fire(
                             'Verified!',
-                            "This browser is verified, we will redirect you to the home page in a moment!",
+                            "This browser is verified, we will redirect you to the home page in a moment.",
                             'success'
                         );
                     }
@@ -249,6 +262,30 @@
                     );
                 }
             });
+    });
+
+
+    $('.other-opt-btn').on('click', function () {
+        $('#mob-for-otp-txt').toggle();
+        $('#otp-sms-btn').toggle();
+        $('#email-for-otp-txt').toggle();
+        $('#otp-email-btn').toggle();
+    });
+
+
+    $('.email-otp-modal-btn').on('click', function () {
+        $('#addMobileModal').modal('hide');
+
+        $('#mob-for-otp-txt').hide();
+        $('#otp-sms-btn').hide();
+
+        $('.other-opt-btn').hide();
+
+        $('#email-for-otp-txt').show();
+        $('#otp-email-btn').show();
+
+
+        $('#otpModal').modal('show');
     });
 
 

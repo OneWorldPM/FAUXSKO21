@@ -59,18 +59,21 @@ class Login extends CI_Controller {
                     (isset($_COOKIE["yc_trusted_device_id"]) && !($this->checkTrustedBrowsers($data['cust_id'], $_COOKIE["yc_trusted_device_id"]))))
                 {
                     $phone = $this->getMaskedPhone($data['cust_id']);
+                    $email = $this->getMaskedEmail($data['cust_id']);
 
                     if (!$phone){
                         $response = array(
                             'status' => 'new_browser',
                             'user_id' => $data['cust_id'],
-                            'masked_reg_mobile' => 'unset'
+                            'masked_reg_mobile' => 'unset',
+                            'masked_reg_email' => $email
                         );
                     }else{
                         $response = array(
                             'status' => 'new_browser',
                             'user_id' => $data['cust_id'],
-                            'masked_reg_mobile' => $phone
+                            'masked_reg_mobile' => $phone,
+                            'masked_reg_email' => $email
                         );
                     }
 
@@ -344,24 +347,76 @@ class Login extends CI_Controller {
         }
     }
 
+    private function getEmail($user_id)
+    {
+        $this->db->select('email');
+        $this->db->from('customer_master');
+        $this->db->where("cust_id ", $user_id);
+        $result = $this->db->get();
+        if ($result->num_rows() > 0) {
+
+            return $result->result()[0]->email;
+
+        } else {
+            return false;
+        }
+    }
+
+    private function getMaskedEmail($user_id)
+    {
+        $this->db->select('email');
+        $this->db->from('customer_master');
+        $this->db->where("cust_id ", $user_id);
+        $result = $this->db->get();
+        if ($result->num_rows() > 0) {
+
+            $email = $result->result()[0]->email;
+
+            $em   = explode("@",$email);
+            $name = implode('@', array_slice($em, 0, count($em)-1));
+            $len  = floor(strlen($name)/2);
+
+            return substr($name,0, $len) . str_repeat('*', $len) . "@" . end($em);
+
+        } else {
+            return false;
+        }
+    }
+
     public function sendLoginOtp($user_id, $method='sms')
     {
-        if (isset($this->input->post()['mobile_no']) && $this->input->post()['mobile_no'] != null && $this->input->post()['mobile_no'] != '' )
-        {
-            $phone = "+".$this->input->post()['mobile_country_code'].$this->input->post()['mobile_no'];
-            $addPhone = true;
-        }else{
-            $phone = $this->getPhone($user_id);
-            $addPhone = false;
-        }
 
         if ($method == 'sms')
         {
+            if (isset($this->input->post()['mobile_no']) && $this->input->post()['mobile_no'] != null && $this->input->post()['mobile_no'] != '' )
+            {
+                $phone = "+".$this->input->post()['mobile_country_code'].$this->input->post()['mobile_no'];
+                $addPhone = true;
+            }else{
+                $phone = $this->getPhone($user_id);
+                $addPhone = false;
+            }
+
+
             $otp = rand ( 1000 , 9999 );
 
             $this->load->library('twilio');
 
-            $from = '+12065128449';
+            $this->load->config('twilio', TRUE);
+
+            if (!$this->config->item('account_sid', 'twilio'))
+            {
+                $response = array(
+                    'status' => 'failed',
+                    'msg' => "Send SMS option is not configured, please contact developer or system administrator."
+                );
+
+                echo json_encode($response);
+
+                return;
+            }
+
+            $from = $this->config->item('number', 'twilio');
             $to = $phone;
             $message = $otp.' is your Your Conference authentication code for FauxSKO21 login.';
 
@@ -388,6 +443,76 @@ class Login extends CI_Controller {
                     'addPhone' => $addPhone,
                     'msg' => "OTP was sent!"
                 );
+                echo json_encode($response);
+            }
+
+            return;
+
+        }elseif ($method == 'email')
+        {
+            $this->load->config('email_config', TRUE);
+
+            if (!$this->config->item('smtp_user', 'email_config'))
+            {
+                $response = array(
+                    'status' => 'failed',
+                    'msg' => "Send email option is not configured, please contact developer or system administrator."
+                );
+
+                echo json_encode($response);
+
+                return;
+            }
+
+            $email = $this->getEmail($user_id);
+
+            $otp = rand ( 1000 , 9999 );
+
+
+            $config = Array(
+                'protocol' => $this->config->item('protocol', 'email_config'),
+                'smtp_host' => $this->config->item('smtp_host', 'email_config'),
+                'smtp_port' => $this->config->item('smtp_port', 'email_config'),
+                'smtp_user' => $this->config->item('smtp_user', 'email_config'),
+                'smtp_pass' => $this->config->item('smtp_pass', 'email_config'),
+                'mailtype'  => $this->config->item('mailtype', 'email_config'),
+                'charset'   => $this->config->item('charset', 'email_config')
+            );
+            $this->load->library('email', $config);
+
+            $this->email->from('fauxsko21@yourconference.live', 'FauxSKO21');
+            $this->email->to($email);
+            //$this->email->cc('athullive@gmail.com');
+            //$this->email->bcc('them@their-example.com');
+
+            $this->email->subject('Login authentication code');
+
+            $email_body = file_get_contents(base_url().'front_assets/email_templates/otp.php?otp='.$otp);
+
+            $this->email->message($email_body);
+
+            $result = $this->email->send();
+
+            if ($result)
+            {
+                $this->db->set('otp', $otp);
+                $this->db->set('otp_created', date('Y-m-d H:i:s'));
+                $this->db->where('cust_id', $user_id);
+                $this->db->update('customer_master');
+
+                $response = array(
+                    'status' => 'success',
+                    'addPhone' => false,
+                    'msg' => "OTP was sent!"
+                );
+                echo json_encode($response);
+            }else{
+
+                $response = array(
+                    'status' => 'failed',
+                    'msg' => "Unable to send email."
+                );
+
                 echo json_encode($response);
             }
 
