@@ -30,7 +30,7 @@
         <p class="lead" style="font-size: 1.93rem;">but this virtual version will cover all the bases.</p>
         <p class="lead">
             <a href="<?=base_url()?>login" class="btn btn-lg btn-secondary shadow-sm" style="color: #0e306c;">Login</a>
-            <a href="<?=base_url()?>register" class="btn btn-lg btn-secondary shadow-sm" style="color: #0e306c;">Register</a>
+<!--            <a href="--><?//=base_url()?><!--register" class="btn btn-lg btn-secondary shadow-sm" style="color: #0e306c;">Register</a>-->
         </p>
     </main>
 
