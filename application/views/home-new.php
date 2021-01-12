@@ -28,6 +28,45 @@
     }
 </style>
 
+<nav class="navbar navbar-expand-lg navbar-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+
+        </ul>
+
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="color: white;">
+                    <i class="fas fa-envelope" style="font-size: 22px;" aria-hidden="true"></i> <span class="msg-noti-count badge badge-danger" style="display: none">0</span>
+                </a>
+                <div class="unread-msgs-list dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <div class="msg-divider dropdown-divider" style="display: none"></div>
+                    <span class="msg-mark-all-read dropdown-item" style="cursor: pointer; display: none"><i class="fas fa-check-double" style="color: #2290df;"></i> Mark all as read</span>
+                </div>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="color: white;">
+                    <i class="fas fa-user-circle"></i> <?= $profile_data->first_name ?>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="<?= base_url() ?>register/user_profile/<?= $profile_data->cust_id ?>"><i class="fas fa-user-edit"></i> Edit Profile</a>
+                    <a class="dropdown-item" href="<?= base_url() ?>home/notes"><i class="fas fa-briefcase"></i> My Briefcase</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="<?= base_url() ?>login/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+</nav>
+
 <body style="background-color: #002f70;">
 
 <div class="container">
@@ -36,24 +75,28 @@
     </div>
 
     <div class="row text-center">
-        <div class="col-md-4">
+
+        <div class="col-md-6">
             <div style="border: 1px solid white;border-radius: 25px;padding: 10px;margin-bottom: 10px;cursor: pointer;" onclick="location.href='<?= base_url() ?>sessions'">
                 <i class="fas fa-chalkboard-teacher" style="font-size: 125px !important; color: #009ce9;"></i>
                 <div style="margin-top: 15px;color: white;font-size: 25px;">SESSIONS</div>
             </div>
         </div>
-        <div class="col-md-4">
+
+        <div class="col-md-6">
             <div style="border: 1px solid white;border-radius: 25px;padding: 10px;margin-bottom: 10px;cursor: pointer;" onclick="location.href='<?= base_url() ?>lounge'">
                 <i class="fas fa-couch" style="font-size: 125px !important; color: #009ce9;"></i>
                 <div style="margin-top: 15px;color: white;font-size: 25px;">LOUNGE</div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div style="border: 1px solid white;border-radius: 25px;padding: 10px;margin-bottom: 10px;cursor: pointer;" onclick="location.href='<?= base_url() ?>sponsor'">
-                <i class="fas fa-compress-arrows-alt" style="font-size: 125px !important; color: #009ce9;"></i>
-                <div style="margin-top: 15px;color: white;font-size: 25px;">TRAINING EXPO</div>
-            </div>
-        </div>
+
+<!--        <div class="col-md-4">-->
+<!--            <div style="border: 1px solid white;border-radius: 25px;padding: 10px;margin-bottom: 10px;cursor: pointer;" onclick="location.href='base_url() ?>sponsor'">-->
+<!--                <i class="fas fa-compress-arrows-alt" style="font-size: 125px !important; color: #009ce9;"></i>-->
+<!--                <div style="margin-top: 15px;color: white;font-size: 25px;">TRAINING EXPO</div>-->
+<!--            </div>-->
+<!--        </div>-->
+
     </div>
 
     <div class="row text-center">
@@ -77,7 +120,152 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+
 <script src="<?=base_url()?>front_assets/login_template/vendor/bootstrap/js/ie10-viewport-bug-workaround.js"></script>
 <script src="https://kit.fontawesome.com/fd91b3535c.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" integrity="sha512-v8ng/uGxkge3d1IJuEo6dJP8JViyvms0cly9pnbfRxT6/31c3dRWxIiwGnMSWwZjHKOuY3EVmijs7k1jz/9bLA==" crossorigin="anonymous"></script>
 </body>
+
+<script>
+    var user_id = <?= $this->session->userdata("cid") ?>;
+    var user_name = "<?= $this->session->userdata('fullname') ?>";
+    function extract(variable) {
+        for (var key in variable) {
+            window[key] = variable[key];
+        }
+    }
+
+    $(function() {
+
+        $.get( "<?=base_url()?>socket_config.php", function( data ) {
+            var config = JSON.parse(data);
+            extract(config);
+
+            var socketServer = "https://socket.yourconference.live:443";
+            let socket = io(socketServer);
+            socket.on('serverStatus', function (data) {
+                socket.emit('addMeToActiveListPerApp', {'user_id':user_id, 'app': socket_app_name, 'room': socket_active_user_list});
+            });
+
+            // Active again
+            function resetActive(){
+                socket.emit('userActiveChangeInApp', {"app":socket_app_name, "room":socket_active_user_list, "name":user_name, "userId":user_id, "status":true});
+            }
+            // No activity let everyone know
+            function inActive(){
+                socket.emit('userActiveChangeInApp', {"app":socket_app_name, "room":socket_active_user_list, "name":user_name, "userId":user_id, "status":false});
+            }
+
+            $(window).on("blur focus", function(e) {
+                var prevType = $(this).data("prevType");
+
+                if (prevType != e.type) {   //  reduce double fire issues
+                    switch (e.type) {
+                        case "blur":
+                            inActive();
+                            break;
+                        case "focus":
+                            resetActive();
+                            break;
+                    }
+                }
+
+                $(this).data("prevType", e.type);
+            });
+
+            socket.on('unreadMessage', function (data) {
+                if(data.chat_to == user_id)
+                    fillUnreadMessages();
+            });
+
+            var app_name_main = "<?=getAppName("") ?>";
+            push_notification_admin();
+            //setInterval(push_notification_admin, 2000);
+            socket.on('push_notification_change', (socket_app_name) => {
+                if (socket_app_name == app_name_main)
+                    push_notification_admin();
+            });
+        });
+
+        fillUnreadMessages();
+
+        $('.msg-mark-all-read').on('click', function () {
+            markAllAsRead();
+        });
+    });
+
+    function fillUnreadMessages() {
+        $('.msg-item').remove();
+        $.get("<?= base_url() ?>user/UnreadMessages/getUnreadMessages", function (messages) {
+            messages = JSON.parse(messages);
+            var count = Object.keys(messages).length;
+            if (count > 0) {
+                $('.msg-noti-count').text(count);
+                $('.msg-noti-count').show();
+                $('.msg-divider').show();
+                $('.msg-mark-all-read').show();
+            }
+            else {
+                $('.unread-msgs-list').prepend('' +
+                    '<a class="msg-item dropdown-item" href="lounge"><strong>No new messages</strong></a>');
+                $('.msg-noti-count').hide();
+                $('.msg-divider').hide();
+                $('.msg-mark-all-read').hide();
+            }
+
+            $.each(messages, function (number, message) {
+
+                let messageText = (message.text.length > 32)?message.text.substring(0,32)+'...':message.text;
+
+                if (message.from_room_type == 'sponsor'){
+                    $('.unread-msgs-list').append('' +
+                        '<a target="_blank" class="dropdown-item waves-effect waves-light m-b-20" href="<?= base_url() ?>sponsor/view/' + message.sponsor_id + '"><i class="fa fa-commenting-o" aria-hidden="true"></i><strong>New message from ' + message.company_name + '</strong></a>');
+                    //$('.unread-msgs-list').append('' +
+                    //    '<a target="_blank" class="dropdown-item waves-effect waves-light" href="<?//= base_url() ?>//sponsor/view/' + message.sponsor_id + '"><strong>New message from ' + message.company_name + '</strong></a>' +
+                    //    '<a href="<?//= base_url() ?>//sponsor/view/' + message.sponsor_id + '" target="_blank">' + message.text + '</a>');
+                }else{
+                    $('.unread-msgs-list').prepend('' +
+                        '<a class="msg-item dropdown-item" href="lounge"><strong>'+message.from_name+' </strong><i class="fas fa-angle-right"></i> '+messageText+'</a>');
+                }
+
+
+            });
+        });
+    }
+
+    function markAllAsRead() {
+        $.get("<?= base_url() ?>user/UnreadMessages/markAllInAsRead/", function() {
+            fillUnreadMessages();
+        });
+    }
+
+    function push_notification_admin()
+    {
+        var push_notification_id = $("#push_notification_id").val();
+
+        $.ajax({
+            url: "<?= base_url() ?>push_notification/get_push_notification_admin",
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                if (data.status == "success") {
+                    if (push_notification_id == "0") {
+                        $("#push_notification_id").val(data.result.push_notification_id);
+                    }
+                    if (push_notification_id != data.result.push_notification_id) {
+                        $("#push_notification_id").val(data.result.push_notification_id);
+                        $('#push_notification').modal('show');
+                        $("#push_notification_message").text(data.result.message);
+                    }
+                } else {
+                    $('#push_notification').modal('hide');
+                }
+            }
+        });
+    }
+</script>
+
 </html>

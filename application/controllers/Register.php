@@ -13,6 +13,10 @@ class Register extends CI_Controller {
     }
 
     public function index() {
+        $login_type = $this->session->userdata('userType');
+        if ($login_type == 'user') {
+            redirect('home');
+        }
         $this->load->view('register-new');
         //$this->load->view('header');
         //$this->load->view('register');
@@ -20,6 +24,14 @@ class Register extends CI_Controller {
     }
 
     public function add_customer() {
+
+        $this->load->config('email_config', TRUE);
+
+        if (!$this->config->item('smtp_user', 'email_config'))
+        {
+            header('location:' . base_url() . 'register?msg=E&error=email_config_does_not_exist'); //Some Error
+        }
+
         $result = $this->objregister->add_customer();
         if ($result == "exist") {
             header('location:' . base_url() . 'register?msg=A'); //email or phone already Exist
@@ -29,6 +41,34 @@ class Register extends CI_Controller {
 			$cust_id = $result;
             $user_details = $this->db->get_where("customer_master", array("cust_id" => $cust_id))->row();
             $token = $this->objlogin->update_user_token($cust_id);
+
+
+            //Send email to registered users
+            $config = Array(
+                'protocol' => $this->config->item('protocol', 'email_config'),
+                'smtp_host' => $this->config->item('smtp_host', 'email_config'),
+                'smtp_port' => $this->config->item('smtp_port', 'email_config'),
+                'smtp_user' => $this->config->item('smtp_user', 'email_config'),
+                'smtp_pass' => $this->config->item('smtp_pass', 'email_config'),
+                'mailtype'  => $this->config->item('mailtype', 'email_config'),
+                'charset'   => $this->config->item('charset', 'email_config')
+            );
+            $this->load->library('email', $config);
+
+            $this->email->from('fauxsko21@yourconference.live', 'FauxSKO21');
+            $this->email->to($user_details->email);
+            //$this->email->cc('athullive@gmail.com');
+            //$this->email->bcc('them@their-example.com');
+
+            $this->email->subject('FAUXSKO 2021 Registration Confirmation');
+
+            $email_body = file_get_contents(base_url().'front_assets/email_templates/register.php');
+
+            $this->email->message($email_body);
+
+            $result = $this->email->send();
+
+
             $session = array(
                 'cid' => $user_details->cust_id,
                 'cname' => $user_details->first_name,

@@ -31,6 +31,7 @@
         <p class="lead">
             <a href="<?=base_url()?>login" class="btn btn-lg btn-secondary shadow-sm" style="color: #0e306c;">Login</a>
 <!--            <a href="--><?//=base_url()?><!--register" class="btn btn-lg btn-secondary shadow-sm" style="color: #0e306c;">Register</a>-->
+        <p class="lead" style="font-size: 15px;"><a href="/support/submit_ticket/displayForm" target="_blank"><i class="far fa-life-ring"></i> SUPPORT</a></p>
         </p>
     </main>
 
@@ -46,5 +47,7 @@
 <script src="<?=base_url()?>front_assets/login_template/vendor/jquery/jquery-slim.min.js"></script>
 <script src="<?=base_url()?>front_assets/login_template/vendor/bootstrap/js/popper.js"></script>
 <script src="<?=base_url()?>front_assets/login_template/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+<script src="https://kit.fontawesome.com/fd91b3535c.js" crossorigin="anonymous"></script>
 </body>
 </html>

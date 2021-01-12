@@ -24,7 +24,12 @@ class Home extends CI_Controller {
         //$this->load->view('header');
         //$this->load->view('home');
         //$this->load->view('footer');
-        $this->load->view('home-new');
+
+        $data = array(
+            'profile_data' => $this->common->get_user_details($this->session->userdata('cid'))
+        );
+
+        $this->load->view('home-new', $data);
     }
 
     public function newHome() {

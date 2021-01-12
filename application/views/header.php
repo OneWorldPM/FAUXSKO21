@@ -113,12 +113,8 @@
             }
 
             #mainMenu2 ul li a {
-                line-height: 0 !important;
-                height: max-content !important;
-                font-weight: 600;
-                font-size: 13px;
-                color: white;
-            }
+                 color: white;
+             }
 
             #mainMenu2 ul li {
                 margin-right: 0px;
@@ -274,118 +270,60 @@
 
                         <!--NAVIGATION-->
                         <div class="navbar-collapse collapse main-menu-collapse navigation-wrap">
-                            <div class="container" style="text-transform: uppercase;">
+                            <div class="container">
                                 <nav id="mainMenu2" class="main-menu mega-menu" style="margin-top: 10px;">
-                                    <?php
-                                    if ($this->session->userdata('cid') != "") {
-                                        $profile_data = $this->common->get_user_details($this->session->userdata('cid'));
-                                        ?>
-                                        <ul class="main-menu nav navbar-nav navbar-right">
-                                            <?php if (1 == 2) { ?>
-                                                <li class="dropdown" style="margin-top: -9px;">
-                                                    <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                                        <?php if ($profile_data->profile != "") { ?>
-                                                            <span class="glyphicon glyphicon-user"></span> Profile
 
-                                                                                                                                                                       <!-- <img src="<?/*= base_url() */?>uploads/customer_profile/<?/*= $profile_data->profile */?>"style="height: 50px; width: 50px;;">-->
+                                    <ul class="nav navbar-nav navbar-right">
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle"></i> <?= $profile_data->first_name ?> <span class="caret"></span></a>
+                                            <ul class="dropdown-menu" style="position: absolute;margin-top: -23px;">
+                                                <li><a href="<?= base_url() ?>register/user_profile/<?= $profile_data->cust_id ?>" style="color: black"><i class="fas fa-user-edit"></i> Edit Profile</a></li>
+                                                <li><a href="<?= base_url() ?>home/notes" style="color: black"><i class="fas fa-briefcase"></i> My Briefcase</a></li>
+                                                <li role="separator" class="msg-divider divider" style="margin-top: 0px;margin-bottom: 2px;"></li>
+                                                <li><a href="<?= base_url() ?>login/logout" style="color: black"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
 
-                                                        <?php } else { ?>
-                                                            <span class="glyphicon glyphicon-user"></span> Profile
-                                                        <?php } ?>
-                                                    </a>
-                                                    <ul class="dropdown-menu">
-                                                        <li>
-                                                            <b style="padding: 10px 20px 10px 18px; color:#A9A9A9;"><?= $profile_data->first_name . ' ' . $profile_data->last_name ?></b>
-                                                        </li>
-                                                        <li>
-                                                            <b style="padding: 10px 20px 10px 18px; color:#A9A9A9;"><?= $profile_data->email ?></b>
-                                                        </li>
-                                                        <li>
-                                                            <a href="<?= base_url() ?>register/user_profile/<?= $profile_data->cust_id ?>">
-                                                                EDIT PROFILE
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="<?= base_url() ?>home/notes">
-                                                                My Briefcase
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="<?= base_url() ?>login/logout">
-                                                                Log Out
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            <?php } ?>
-                                        </ul>
+                                    <ul class="nav navbar-nav navbar-right">
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-envelope" style="font-size: 22px;" aria-hidden="true"></i> <span class="msg-noti-count badge badge-danger" style="display: none;background-color: #ee5656;margin-right: 0;">0</span>
+                                                <span class="caret"></span></a>
+                                            <ul class="unread-msgs-list dropdown-menu" style="position: absolute;margin-top: -20px;">
+                                                <li role="separator" class="msg-divider divider" style="margin-top: 0px;margin-bottom: 2px;"></li>
+                                                <li class="msg-mark-all-read" style="display: none;"><span style="color: black;cursor: pointer;"><i class="fas fa-check-double" style="color: #2290df;"></i> Mark all as read</span></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
 
-                                        <ul class="main-menu nav navbar-nav navbar-right">
-                                            <li><a href="https://yourconference.live/support/submit_ticket" target="_blank">SUPPORT</a></li>
-                                        </ul>
+                                    <ul class="main-menu nav navbar-nav navbar-right">
+                                        <li><a href="https://yourconference.live/support/submit_ticket" target="_blank">SUPPORT</a></li>
+                                    </ul>
 
-                                        <ul class="main-menu nav navbar-nav navbar-right">
-                                            <li><a href="<?= base_url() ?>lounge">LOUNGE</a></li>
-                                        </ul>
+                                    <ul class="main-menu nav navbar-nav navbar-right">
+                                        <li><a href="<?= base_url() ?>lounge">LOUNGE</a></li>
+                                    </ul>
 
-                                        <ul class="main-menu nav navbar-nav navbar-right">
-                                            <li><a href="<?= base_url() ?>sponsor">EXPO</a></li>
-                                        </ul>
+                                    <ul class="main-menu nav navbar-nav navbar-right">
+                                        <li><a href="<?= base_url() ?>sessions">SESSIONS</a></li>
+                                    </ul>
 
-                                        <ul class="main-menu nav navbar-nav navbar-right">
-                                            <li><a href="<?= base_url() ?>sessions">SESSIONS</a></li>
-                                        </ul>
+                                    <ul class="main-menu nav navbar-nav navbar-right">
+                                        <li><a href="<?= base_url() ?>home">LOBBY</a></li>
+                                    </ul>
 
-                                        <ul class="main-menu nav navbar-nav navbar-right">
-                                            <?php
-                                            if (isset($attendee_view_links_status) && isset($attendee_view_links_status)) {
-                                                if ($attendee_view_links_status == "1") {
-                                                    ?>
-                                                    <li><a target="_blank" href="<?= $url_link ?>"><?= $link_text ?></a></li>
-                                                    <?php
-                                                }
+                                    <ul class="main-menu nav navbar-nav navbar-right">
+                                        <?php
+                                        if (isset($attendee_view_links_status) && isset($attendee_view_links_status)) {
+                                            if ($attendee_view_links_status == "1") {
+                                                ?>
+                                                <li><a target="_blank" href="<?= $url_link ?>"><?= $link_text ?></a></li>
+                                                <?php
                                             }
-                                            ?>
-                                        </ul>
-<!--                                        <ul class="nav navbar-nav navbar-right">-->
-<!--                                            <li class="sticky_resources_open" data-type="resourcesSticky"><a data-type2="off">Recursos</a></li>-->
-<!--                                            <li>-->
-<!--                                                <a target="_blank">Herramienta</a>-->
-<!--                                                <ul class="toolboxCustomDrop">-->
-<!--                                                    --><?php
-//                                                    if (isset($right_bar) && isset($tool_box_status)) {
-//                                                        if ($tool_box_status == "1") {
-//                                                            if (sessionRightBarControl($right_bar, "questions")) {
-//                                                                ?>
-<!--                                                                <li data-type="questionsSticky"><a data-type2="off"><i class="fa fa-question" aria-hidden="true"></i> Preguntas</a></li>-->
-<!--                                                                --><?php
-//                                                            }
-//                                                            if (sessionRightBarControl($right_bar, "notes")) {
-//                                                                ?>
-<!--                                                                <li data-type="notesSticky"><a data-type2="off"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> TAKE NOTES</a></li>-->
-<!--                                                                --><?php
-//                                                            }
-//                                                            if (sessionRightBarControl($right_bar, "chat")) {
-//                                                                ?>
-<!--                                                                <li data-type="messagesSticky"><a data-type2="off"><i class="fa fa-comments" aria-hidden="true"></i> CHAT</a></li>-->
-<!--                                                                --><?php
-//                                                            }
-//                                                            if (sessionRightBarControl($right_bar, "resources")) {
-//                                                                ?>
-<!--                                                                <li data-type="resourcesSticky"><a data-type2="off"><i class="fa fa-paperclip" aria-hidden="true"></i> Recursos</a></li>-->
-<!--                                                                --><?php
-//                                                            }
-//                                                        }
-//                                                    }
-//                                                    ?>
-<!--                                                </ul>-->
-<!--                                            </li>-->
-<!--                                        </ul>-->
-                                    <?php } else { ?>
-                                        <ul class="main-menu nav navbar-nav navbar-right">
-                                            <li><a href="https://yourconference.live/support/submit_ticket" target="_blank">SUPPORT</a></li>
-                                        </ul>
-                                    <?php } ?>
+                                        }
+                                        ?>
+                                    </ul>
                                 </nav>
                             </div>
                         </div>
@@ -395,3 +333,4 @@
                 </div>
             </header>
             <!-- END: HEADER -->
+            <script src="https://kit.fontawesome.com/fd91b3535c.js" crossorigin="anonymous"></script>

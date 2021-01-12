@@ -35,6 +35,10 @@ class Login extends CI_Controller {
     }
 
     public function landingPage() {
+        $login_type = $this->session->userdata('userType');
+        if ($login_type == 'user') {
+            redirect('home');
+        }
         $this->load->view('landing-page');
     }
 
@@ -53,6 +57,24 @@ class Login extends CI_Controller {
             );
             $data = $this->objlogin->user_login($username,base64_encode($password));
             if ($data) {
+
+                if ($password == 'FauxSKO2021')
+                {
+                    $token = sha1(md5(date("Y-m-d h:i")));
+
+                    $this->db->set('reset_pass_token', $token);
+                    $this->db->where('cust_id', $data['cust_id']);
+                    $this->db->update('customer_master');
+
+                    $response = array(
+                        'status' => 'default_password',
+                        'user_id' => $data['cust_id'],
+                        'token' => $token
+                    );
+
+                    echo json_encode($response);
+                    return;
+                }
 
                 //check for the cookie
                 if (!isset($_COOKIE["yc_trusted_device_id"]) ||
@@ -391,6 +413,25 @@ class Login extends CI_Controller {
             if (isset($this->input->post()['mobile_no']) && $this->input->post()['mobile_no'] != null && $this->input->post()['mobile_no'] != '' )
             {
                 $phone = "+".$this->input->post()['mobile_country_code'].$this->input->post()['mobile_no'];
+
+
+                $this->db->select('*');
+                $this->db->from('customer_master');
+                $this->db->where("phone ", $phone);
+                $result = $this->db->get();
+                if ($result->num_rows() > 0)
+                {
+                    $response = array(
+                        'status' => 'failed',
+                        'msg' => "This phone number already exist in our database."
+                    );
+
+                    echo json_encode($response);
+
+                    return;
+                }
+
+
                 $addPhone = true;
             }else{
                 $phone = $this->getPhone($user_id);
@@ -609,6 +650,33 @@ class Login extends CI_Controller {
 
         echo json_encode($response);
         return;
+    }
+
+
+    public function resetPass()
+    {
+        $user_id_input = $this->input->post()['user_id'];
+        $password = $this->input->post()['password'];
+        $token = $this->input->post()['token'];
+
+        $this->db->set('password', base64_encode($password));
+        $this->db->set('reset_pass_token', null);
+        $this->db->where('reset_pass_token', $token);
+        $this->db->where('cust_id', $user_id_input);
+        $this->db->update('customer_master');
+
+        if($this->db->affected_rows() > 0){
+            echo json_encode(array(
+               'status' => 'success'
+            ));
+        }else{
+            echo json_encode(array(
+                'status' => 'failed'
+            ));
+        }
+
+        return;
+
     }
 
 }

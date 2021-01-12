@@ -62,9 +62,9 @@
             </div>
 
             <form class="login100-form validate-form" method="post" action="<?= base_url() ?>login/authentication">
-                <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
-                    <span class="label-input100">Username</span>
-                    <input class="input100" type="text" id="email" name="email" placeholder="Enter username">
+                <div class="wrap-input100 validate-input m-b-26" data-validate="Email is required">
+                    <span class="label-input100">Email</span>
+                    <input class="input100" type="text" id="email" name="email" placeholder="Enter email">
                     <span class="focus-input100"></span>
                 </div>
 
@@ -95,10 +95,17 @@
                     </button>
                 </div>
             </form>
+
         <a href="<?=base_url()?>">
             <button class="btn btn-secondary">
                 Back
             </button>
+        </a>
+
+        <a href="/support/submit_ticket/displayForm" target="_blank" style="float: right;margin-right: 10px;">
+            <span>
+                <i class="far fa-life-ring"></i> SUPPORT
+            </span>
         </a>
         </div>
     </div>
@@ -408,6 +415,40 @@
     </div>
 </div>
 
+<!-- Password reset modal -->
+<div class="modal fade" id="passResetModal" tabindex="-1" role="dialog" aria-labelledby="passResetModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="passResetModalLabel">Reset password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Your account is using default login password, you must reset it to login.</p>
+
+                <div class="form-group m-t-20">
+                    <label for="resetPassword1">Password</label>
+                    <input type="password" class="form-control" id="resetPassword1" placeholder="Password">
+                </div>
+
+                <div class="form-group">
+                    <label for="resetPassword2">Confirm password</label>
+                    <input type="password" class="form-control" id="resetPassword2" placeholder="Confirm password">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="reset-pass-btn" type="button" class="btn btn-success"><i class="fas fa-key"></i> Reset</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <!--===============================================================================================-->
 <script src="<?=base_url()?>front_assets/login_template/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
@@ -431,7 +472,7 @@
 
 <script src="https://kit.fontawesome.com/fd91b3535c.js" crossorigin="anonymous"></script>
 
-<script src="<?=base_url()?>front_assets/login_template/js/main.js?v=2"></script>
+<script src="<?=base_url()?>front_assets/login_template/js/main.js?v=4"></script>
 
 <script>
     let base_url = "<?=base_url()?>";

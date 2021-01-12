@@ -28,8 +28,8 @@ class M_register extends CI_Model {
                     "register_id" => $register_id,
                     'first_name' => trim($post['first_name']),
                     'last_name' => trim($post['last_name']),
+                    'job_type' => trim($post['job_type']),
                     'email' => trim($post['email']),
-                    'country' => $post['country'],
                     'password' => base64_encode($post['password']),
                     'register_date' => date("Y-m-d h:i")
                 );

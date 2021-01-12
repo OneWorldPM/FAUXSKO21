@@ -28,6 +28,7 @@
 
     /*==================================================================
     [ Validate ]*/
+
     var input = $('.validate-input .input100');
 
     $('.validate-form').on('submit',function(e){
@@ -42,70 +43,20 @@
             }
         }
 
+        if (isCaptchaChecked() == false)
+        {
+            $('#errorcaptcha').show();
+            check=false;
+        }
+
+
+        console.log('form check status:'+ check);
+
         if (check)
         {
-            /* get the action attribute from the <form action=""> element */
-            var $form = $(this),
-                url = $form.attr('action');
-
-            /* Send the data using post with element id name and name2*/
-            var posting = $.post(url, {
-                email: $('#email').val(),
-                password: $('#password').val()
-            });
-
-            /* Alerts the results */
-            posting.done(function(data) {
-                data = JSON.parse(data);
-
-                if (data.status == 'success')
-                {
-                    window.location.replace(base_url+'home');
-                }else if (data.status == 'default_password')
-                {
-                    $('#reset-pass-btn').attr('user-id', data.user_id);
-                    $('#reset-pass-btn').attr('token', data.token);
-                    $('#passResetModal').modal('show');
-
-                }else if (data.status == 'new_browser')
-                {
-                    if (data.masked_reg_mobile == 'unset')
-                    {
-                        $('.send-otp-sms-btn').attr('user_id', data.user_id);
-                        $('.send-otp-email-btn').attr('user_id', data.user_id);
-
-                        $('.verify-browser-btn').attr('user_id', data.user_id);
-
-                        $('#masked_email').text(data.masked_reg_email);
-
-                        $('#addMobileModal').modal('show');
-
-                    }else{
-                        $('.send-otp-sms-btn').attr('user_id', data.user_id);
-                        $('.send-otp-email-btn').attr('user_id', data.user_id);
-
-                        $('.verify-browser-btn').attr('user_id', data.user_id);
-
-                        $('#masked_mobile_no').text(data.masked_reg_mobile);
-                        $('#masked_email').text(data.masked_reg_email);
-
-                        $('#otpModal').modal('show');
-                    }
-
-                }else if (data.status == 'failed')
-                {
-                    Swal.fire(
-                        'Problem!',
-                        data.msg,
-                        'error'
-                    );
-                }
-
-            });
-            posting.fail(function(data) {
-                alert(data);
-            });
+            document.getElementById('regForm').submit();
         }
+        return check;
     });
 
 
@@ -294,89 +245,14 @@
         $('#otpModal').modal('show');
     });
 
-
-
-    var otp1 = document.getElementById('otpInput');
-    var otp2 = document.getElementById('addMobileOtpInput');
-    otp1.addEventListener('keydown', stopCarret1);
-    otp1.addEventListener('keyup', stopCarret1);
-    otp2.addEventListener('keydown', stopCarret2);
-    otp2.addEventListener('keyup', stopCarret2);
-
-    function stopCarret1() {
-        if (otp1.value.length > 3){
-            setCaretPosition(otp1, 3);
-        }
-    }
-
-    function stopCarret2() {
-        if (otp2.value.length > 3){
-            setCaretPosition(otp2, 3);
-        }
-    }
-
-    function setCaretPosition(elem, caretPos) {
-        if(elem != null) {
-            if(elem.createTextRange) {
-                var range = elem.createTextRange();
-                range.move('character', caretPos);
-                range.select();
-            }
-            else {
-                if(elem.selectionStart) {
-                    elem.focus();
-                    elem.setSelectionRange(caretPos, caretPos);
-                }
-                else
-                    elem.focus();
-            }
-        }
-    }
-
-
-    $('#reset-pass-btn').on('click', function () {
-        let password = $('#resetPassword1').val();
-        let cnfmPassword = $('#resetPassword2').val();
-        let user_id = $(this).attr('user-id');
-        let token = $(this).attr('token');
-
-        if (password == '' || cnfmPassword == '')
-        {
-            toastr.error("You need to enter both password and confirm password.");
-            return false;
-        }
-
-        if (password != cnfmPassword)
-        {
-            toastr.error("Password and confirm password does not match.");
-            return false;
-        }
-
-        $.post( base_url+"login/resetPass",
-            {
-                user_id: user_id,
-                password: password,
-                token: token
-            })
-            .done(function( data ) {
-                data = JSON.parse(data);
-                if (data.status == 'success'){
-                    $('#passResetModal').modal('hide');
-                    Swal.fire(
-                        'Done!',
-                        "Your password has been reset, you can now login using new credentials.",
-                        'success'
-                    );
-                }else{
-                    Swal.fire(
-                        'Problem!',
-                        "Unable to reset the password",
-                        'error'
-                    );
-                }
-            });
-
-    })
     
 
 })(jQuery);
+
+function isCaptchaChecked() {
+    return grecaptcha && grecaptcha.getResponse().length !== 0;
+}
+
+function recaptchaCallback() {
+    $('#errorcaptcha').hide();
+}
