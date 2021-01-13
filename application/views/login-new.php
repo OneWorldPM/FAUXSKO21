@@ -160,11 +160,10 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addMobileModalLabel">Add mobile</h5>
-                <small>You have no or incorrect mobile number registered with us!</small>
+                <h5 class="modal-title" id="addMobileModalLabel">To participate in this event, please add a mobile number to receive a text verification code.</h5>
             </div>
             <div class="modal-body">
-                <h6>Please add your mobile number!</h6>
+                <h6>Please add your mobile number</h6>
 
                 <select name="countryCode" id="countryCode" class="form-control m-t-5">
                     <option data-countryCode="US" value="1">USA (+1)</option>
