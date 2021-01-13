@@ -21,10 +21,10 @@
     }
 
 </style>
-<section class="parallax fullscreen" style="background-image: url(<?= base_url() ?>front_assets/images/attend_background.png); top: 0; padding-top: 0px;">
+<section class="parallax fullscreen" style="background-image: url(<?= base_url() ?>front_assets/images/FAUXSKO21/2_ForescoutSKO_MainHall_–_blank.png); top: 0; padding-top: 0px;">
 <div class="container container-fullscreen">
     <div class="jumbotron">
-        <h2>Esta sesión ya ha terminado.</h2>
+        <h2>This session is ended.</h2>
     </div>
 </div>
 </section>
