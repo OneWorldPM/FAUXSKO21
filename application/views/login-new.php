@@ -458,7 +458,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p class="m-b-10">We will send you an email with password recovery link</p>
+                <p class="m-b-10">We will send you an email with a password recovery link</p>
 
                 <form>
                     <div class="form-group">
