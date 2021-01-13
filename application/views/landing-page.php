@@ -16,20 +16,20 @@
     <link href="<?=base_url()?>front_assets/login_template/css/cover.css" rel="stylesheet">
 </head>
 
-<body class="text-center" style="background-image: url(<?=base_url()?>front_assets/images/mohammed-shaheen-Fo44off83V8-unsplash.jpg)">
+<body class="text-center" style="background-image: url(<?=base_url()?>front_assets/images/FAUXSKO21/1_ForescoutSKO_LandingPage.png)">
 
 <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
     <header class="masthead mb-auto">
 <!--        <img class="" src="--><?//= base_url() ?><!--front_assets/images/FAUXSKO21/Forescout_Logo_CCPage.png">-->
     </header>
 
-    <main role="main" class="inner cover">
+    <main role="main" class="inner cover" style="background-color: #1da2e38f;padding: 0;">
 <!--        <h1 class="cover-heading">Faux SKO Sales Kickoff 2021</h1>-->
-        <img src="<?=base_url()?>front_assets/images/FAUXSKO21/fauxsko_sqr.png" style="width: 345px;">
+        <img src="<?=base_url()?>front_assets/images/FAUXSKO21/FauxSKO_Featured_Image.png" style="width: 100%;">
         <p class="lead" style="font-size: 2rem;">We will miss seeing your faces,</p>
         <p class="lead" style="font-size: 1.93rem;">but this virtual version will cover all the bases.</p>
         <p class="lead">
-            <a href="<?=base_url()?>login" class="btn btn-lg btn-secondary shadow-sm" style="color: #0e306c;">Login</a>
+            <a href="<?=base_url()?>login" class="btn btn-lg btn-secondary shadow-sm" style="color: white;background-color: #002f70;">Login</a>
 <!--            <a href="--><?//=base_url()?><!--register" class="btn btn-lg btn-secondary shadow-sm" style="color: #0e306c;">Register</a>-->
         <p class="lead" style="font-size: 15px;"><a href="/support/submit_ticket/displayForm" target="_blank"><i class="far fa-life-ring"></i> SUPPORT</a></p>
         </p>

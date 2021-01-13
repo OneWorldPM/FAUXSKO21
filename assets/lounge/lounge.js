@@ -511,6 +511,11 @@ $(function() {
         $(".attendees-chat-list li").sort(newtext_dec_sort).appendTo('.attendees-chat-list');
     });
 
+    socket.on('newActiveUser', function (data) {
+        if (data.app == socket_app_name)
+            socket.emit('getActiveUserListPerApp', socket_app_name);
+    });
+
     socket.on('userActiveChangeInApp', function(data) {
         socket.emit('getActiveUserListPerApp', socket_app_name);
         if (data.app == socket_app_name)

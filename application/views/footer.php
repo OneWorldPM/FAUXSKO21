@@ -23,6 +23,13 @@
 <!-- Theme Base, Components and Settings -->
 <script src="<?= base_url() ?>front_assets/js/theme-functions.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous"></script>
+
+<script src="https://kit.fontawesome.com/fd91b3535c.js" crossorigin="anonymous"></script>
+
 <!-- Custom js file -->
 <script src="<?= base_url() ?>front_assets/js/custom.js?v=3"></script>
 <script src="<?= base_url() ?>assets/alertify/alertify.min.js" type="text/javascript"></script>
@@ -47,8 +54,11 @@
             let socket = io(socketServer);
             socket.on('serverStatus', function (data) {
                 socket.emit('addMeToActiveListPerApp', {'user_id':user_id, 'app': socket_app_name, 'room': socket_active_user_list});
-                socket.emit('userActiveChangeInApp', {"app":socket_app_name, "room":socket_active_user_list, "name":user_name, "userId":user_id, "status":true});
             });
+
+            setTimeout(function(){ //Adding to active users list 5 seconds after load - delay countermeasure
+                socket.emit('userActiveChangeInApp', {"app":socket_app_name, "room":socket_active_user_list, "name":user_name, "userId":user_id, "status":true});
+            }, 3000);
 
             // Active again
             function resetActive(){
@@ -165,6 +175,20 @@
                 }
             }
         });
+    }
+
+    function getParameters() {
+        var searchString = window.location.search.substring(1),
+            params = searchString.split("&"),
+            hash = {};
+
+        if (searchString == "") return {};
+        for (var i = 0; i < params.length; i++) {
+            var val = params[i].split("=");
+            hash[unescape(val[0])] = unescape(val[1]);
+        }
+
+        return hash;
     }
 </script>
 

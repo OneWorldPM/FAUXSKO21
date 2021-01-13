@@ -275,7 +275,7 @@
 
                                     <ul class="nav navbar-nav navbar-right">
                                         <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle"></i> <?= $profile_data->first_name ?> <span class="caret"></span></a>
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?=($profile_data->profile == null)?'<i class="fas fa-user-circle"></i>':'<img src="'.base_url().'uploads/customer_profile/'.$profile_data->profile.'" alt="Avatar" style="border-radius: 50%;width: 25px;height: 26px;">'?> <?= $profile_data->first_name ?> <span class="caret"></span></a>
                                             <ul class="dropdown-menu" style="position: absolute;margin-top: -23px;">
                                                 <li><a href="<?= base_url() ?>register/user_profile/<?= $profile_data->cust_id ?>" style="color: black"><i class="fas fa-user-edit"></i> Edit Profile</a></li>
                                                 <li><a href="<?= base_url() ?>home/notes" style="color: black"><i class="fas fa-briefcase"></i> My Briefcase</a></li>

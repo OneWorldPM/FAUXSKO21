@@ -64,10 +64,10 @@
 <body>
 
 <div class="limiter">
-    <div class="container-login100" style="background-image: url(<?=base_url()?>front_assets/images/mohammed-shaheen-Fo44off83V8-unsplash.jpg)">
+    <div class="container-login100" style="background-image: url(<?=base_url()?>front_assets/images/FAUXSKO21/1_ForescoutSKO_LandingPage.png)">
         <div class="wrap-login100">
             <div class="login100-form-title"">
-            <img src="<?=base_url()?>front_assets/images/FAUXSKO21/SKO_2021_WebHero_1920w.png" style="width: 100%;height: auto;">
+            <img src="<?=base_url()?>front_assets/images/FAUXSKO21/FauxSKO_Featured_Image.png" style="width: 100%;height: auto;">
         </div>
 
         <form id="regForm" class="login100-form validate-form" method="post" action="<?= base_url() ?>register/add_customer">
@@ -441,6 +441,8 @@
 <!-- Bootstrap theme -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 <script src="https://kit.fontawesome.com/fd91b3535c.js" crossorigin="anonymous"></script>
@@ -449,12 +451,16 @@
 $msg = $this->input->get("msg");
 switch ($msg) {
     case "A":
-        $m = "Email Alredy Exist!!!";
+        $m = "Email already exits.";
         $t = "error";
         break;
     case "E":
-        $m = "Something went wrong, Please try again!!!";
+        $m = "Something went wrong, please try again!";
         $t = "error";
+        break;
+    case "Done":
+        $m = "You are successfully registered, you can now login!";
+        $t = "success";
         break;
     default:
         $m = 0;
@@ -465,7 +471,11 @@ switch ($msg) {
 
     $(document).ready(function () {
         <?php if ($msg): ?>
-        alertify.<?= $t ?>("<?= $m ?>");
+        Swal.fire(
+            '',
+            "<?= $m ?>",
+            '<?= $t ?>'
+        )<?=($t=='success')?'.then(()=>{window.location.replace("'.base_url().'login")})':''?>;
         <?php endif; ?>
     });
 

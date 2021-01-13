@@ -1,6 +1,6 @@
 <style>
     body{
-        background-image: url(<?= base_url() ?>front_assets/images/FAUXSKO21/Forescout_FAUXSKO21_Session_Page_Mockup.png);
+        background-image: url(<?= base_url() ?>front_assets/images/FAUXSKO21/3_ForescoutSKO_SessionsPage.png);
         background-attachment: fixed;
         background-size: cover !important;
         background-position: center center !important;

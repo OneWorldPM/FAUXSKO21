@@ -12,7 +12,7 @@ class Forgotpassword extends CI_Controller {
     }
 
     public function index() {
-        $this->load->view('header');
+        $this->load->view('header-no-menu-bar');
         $this->load->view('forgotpassword');
         $this->load->view('footer');
     }
@@ -34,38 +34,102 @@ class Forgotpassword extends CI_Controller {
         $email = $this->input->post('email');
         $this->db->where('email', trim($email));
         $customer = $this->db->get('customer_master');
+
         if ($customer->num_rows() > 0) { //Check Email or Phone exist with new Use
             $cust_data = $customer->row();
-            $from = 'support@devtesting.club';
-            $subject = 'Forgot Password';
+
+            $this->load->config('email_config', TRUE);
+
+            if (!$this->config->item('smtp_user', 'email_config'))
+            {
+                $response = array(
+                    'status' => 'no_email_config',
+                    'msg' => "Send email option is not configured, please contact developer or system administrator."
+                );
+
+                echo json_encode($response);
+
+                return;
+            }
+
+            $config = Array(
+                'protocol' => $this->config->item('protocol', 'email_config'),
+                'smtp_host' => $this->config->item('smtp_host', 'email_config'),
+                'smtp_port' => $this->config->item('smtp_port', 'email_config'),
+                'smtp_user' => $this->config->item('smtp_user', 'email_config'),
+                'smtp_pass' => $this->config->item('smtp_pass', 'email_config'),
+                'mailtype'  => $this->config->item('mailtype', 'email_config'),
+                'charset'   => $this->config->item('charset', 'email_config')
+            );
+            $this->load->library('email', $config);
+
             $link = base_url() . 'forgotpassword/changePassword?id=' . base64_encode($cust_data->cust_id);
 
-            $message = "<p>Hello,<br><br>Please use below link to reset your account Password</p><br><br>" . $link . "<br><br>Best Regards,<br>Conference Team";
-            $this->common->sendEmail($from, trim($cust_data->email), $subject, $message);
-            $result['msg'] = 'sendemail';
-            echo json_encode($result);
+            $this->email->from('fauxsko21@yourconference.live', 'FauxSKO21');
+            $this->email->to($email);
+            //$this->email->cc('athullive@gmail.com');
+            //$this->email->bcc('them@their-example.com');
+
+            $this->email->subject('Recover your password');
+
+            $email_body = file_get_contents(base_url().'front_assets/email_templates/recover_password.php?link='.$link);
+
+            $this->email->message($email_body);
+
+            $result = $this->email->send();
+
+            if ($result)
+            {
+                $response = array(
+                    'status' => 'success',
+                    'msg' => "Password recovery email was sent!"
+                );
+                echo json_encode($response);
+            }else{
+
+                $response = array(
+                    'status' => 'failed',
+                    'msg' => "Unable to send email."
+                );
+
+                echo json_encode($response);
+            }
+
+            return;
+
         } else {
-            $result['msg'] = 'error';
-            echo json_encode($result);
+
+            $response = array(
+                'status' => 'email_does_not_exist',
+                'msg' => "Email does not exist in our database."
+            );
+
+            echo json_encode($response);
+
+            return;
         }
     }
 
     public function changePassword() {
         $data['customer_id'] = $this->input->get('id');
 
-        $this->load->view('header');
+        //$this->load->view('header');
         $this->load->view('changeforgotpassword', $data);
-        $this->load->view('footer');
+        //$this->load->view('footer');
     }
 
     public function passwordChange() {
         $post = $this->input->post();
         if (!empty($post)) {
-            $this->objforgotpassword->setnewpassword($post);
-            header('location:' . base_url() . 'login');
+            if($this->objforgotpassword->setnewpassword($post))
+                echo json_encode(array('status'=>'success'));
+            else
+                echo json_encode(array('status'=>'failed'));
         } else {
-            header('location:' . base_url() . 'login');
+            echo json_encode(array('status'=>'failed'));
         }
+
+        return;
     }
 
 }

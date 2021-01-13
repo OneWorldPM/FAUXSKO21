@@ -95,7 +95,7 @@
                 }else if (data.status == 'failed')
                 {
                     Swal.fire(
-                        'Problem!',
+                        data.title,
                         data.msg,
                         'error'
                     );
@@ -152,6 +152,7 @@
         let mobile_country_code = null;
         let mobile_no = null;
         let action = null;
+        let user_id = $(this).attr('user_id');
 
         if ($(this).attr('action') == 'add-mobile')
         {
@@ -176,7 +177,7 @@
 
         $('.send-otp-sms-btn').prop("disabled", true);
 
-        $.post( base_url+"login/sendLoginOtp/"+$(this).attr('user_id')+"/"+otpType,
+        $.post( base_url+"login/sendLoginOtp/"+user_id+"/"+otpType,
             {
                 mobile_country_code: $('#countryCode').val(),
                 mobile_no: $('#mobile_no').val()
@@ -377,6 +378,44 @@
             });
 
     })
+
+    $('#forgot-pass-btn').on('click', function () {
+        $('#forgotPassModal').modal('show');
+    });
+
+    $('#pass-rec-email-btn').on('click', function () {
+        let email = $('#pass-rec-email').val();
+
+        if(email.trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
+
+            toastr.error("You need to enter a valid email address");
+            return false;
+        }
+
+
+        $.ajax({
+            url: base_url+"forgotpassword/sendEmail",
+            type: "post",
+            data: {'email': email},
+            dataType: "json",
+            success: function (data, textStatus, jqXHR) {
+                if (data.status == 'success') {
+                    Swal.fire(
+                        'Done!',
+                        data.msg,
+                        'success'
+                    );
+                }else {
+                    Swal.fire(
+                        'Error!',
+                        data.msg,
+                        'error'
+                    );
+                }
+            }
+        });
+
+    });
     
 
 })(jQuery);

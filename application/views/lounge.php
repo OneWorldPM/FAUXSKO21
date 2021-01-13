@@ -4,7 +4,7 @@
 <link href="<?= base_url() ?>assets/lounge/lounge.css?v=<?= rand(200, 300) ?>" rel="stylesheet">
 <style>
     body{
-        background-image: url(<?= base_url() ?>front_assets/images/FAUXSKO21/Forescout_FAUXSKO21_Lounge_Page_Mockup.png);
+        background-image: url(<?= base_url() ?>front_assets/images/FAUXSKO21/4_ForescoutSKO_NetworkingLoungePage.png);
         background-attachment: fixed;
         background-size: cover !important;
         background-position: center center !important;

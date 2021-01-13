@@ -81,17 +81,15 @@ class M_register extends CI_Model {
     function update_user() {
         $post = $this->input->post();
         $cust_id = $post['cust_id'];
+
         $set = array(
             'first_name' => trim($post['first_name']),
             'last_name' => trim($post['last_name']),
-            'specialty' => trim($post['specialty']),
-            'topic' => trim($post['topic']),
-            'zipcode' => trim($post['zipcode']),
-            'phone' => trim($post['cell_phone']),
-            'address' => $post['address'] . " " . $post['address_2'],
-            'city' => trim($post['city']),
-            'state' => trim($post['state']),
-            'country' => trim($post['country']),
+            'email' => trim($post['email']),
+            'title' => trim($post['title']),
+            'job_type' => trim($post['job_type']),
+            'region' => trim($post['region']),
+            'phone' => trim($post['cell_phone'])
         );
         $this->db->update("customer_master", $set, array('cust_id' => $cust_id));
         if ($_FILES['profile']['size'] != 0) {

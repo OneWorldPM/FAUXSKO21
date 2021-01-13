@@ -55,10 +55,10 @@
 <body>
 
 <div class="limiter">
-    <div class="container-login100" style="background-image: url(<?=base_url()?>front_assets/images/mohammed-shaheen-Fo44off83V8-unsplash.jpg)">
+    <div class="container-login100" style="background-image: url(<?=base_url()?>front_assets/images/FAUXSKO21/1_ForescoutSKO_LandingPage.png)">
         <div class="wrap-login100">
             <div class="login100-form-title"">
-					<img src="<?=base_url()?>front_assets/images/FAUXSKO21/SKO_2021_WebHero_1920w.png" style="width: 100%;height: auto;">
+					<img src="<?=base_url()?>front_assets/images/FAUXSKO21/FauxSKO_Featured_Image.png" style="width: 100%;height: auto;">
             </div>
 
             <form class="login100-form validate-form" method="post" action="<?= base_url() ?>login/authentication">
@@ -83,9 +83,9 @@
 <!--                    </div>-->
 
                     <div>
-                        <a href="#" class="txt1">
+                        <span id="forgot-pass-btn" href="" class="txt1" style="cursor: pointer">
                             Forgot Password?
-                        </a>
+                        </span>
                     </div>
                 </div>
 
@@ -120,8 +120,9 @@
             </div>
             <div class="modal-body">
                 <p>Your browser must be verified before participating in this event by using a One-Time-Password (OTP) verification code.</p>
+
                 <p id="mob-for-otp-txt">Click on the button below to send a code to your registered mobile phone (<span id="masked_mobile_no"></span>).</p>
-                <button id="otp-sms-btn" class="send-otp-sms-btn btn btn-sm btn-info m-t-5"><i class="fas fa-mobile-alt" otp-type="sms"></i> Send OTP</button>
+                <button id="otp-sms-btn" class="send-otp-sms-btn btn btn-sm btn-info m-t-5" otp-type="sms"><i class="fas fa-mobile-alt"></i> Send OTP</button>
 
                 <p id="email-for-otp-txt" style="display: none;">Click on the button below to send a code to your registered email (<span id="masked_email"></span>).</p>
                 <button id="otp-email-btn" class="send-otp-email-btn btn btn-sm btn-info m-t-5" style="display: none;" otp-type="email"><i class="fa fa-envelope" aria-hidden="true"></i> Send OTP via Email</button>
@@ -447,6 +448,33 @@
     </div>
 </div>
 
+<!-- Forgot password modal -->
+<div class="modal fade" id="forgotPassModal" tabindex="-1" role="dialog" aria-labelledby="forgotPassModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="forgotPassModalLabel">Recover password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="m-b-10">We will send you an email with password recovery link</p>
+
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control" id="pass-rec-email" aria-describedby="emailHelp" placeholder="Enter email">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="pass-rec-email-btn" type="button" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Send</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <!--===============================================================================================-->

@@ -124,7 +124,8 @@ class Login extends CI_Controller {
             } else {
                 $response = array(
                     'status' => 'failed',
-                    'msg' => 'Incorrect username or password!'
+                    'title' => '',
+                    'msg' => 'You have entered an incorrect username or password'
                 );
 
                 //$this->session->set_flashdata('msg', '<div class="col-md-12 text-red" style="padding: 0 0 10px 0;">Username or Password is Wrong.</div><br>');
@@ -459,7 +460,7 @@ class Login extends CI_Controller {
 
             $from = $this->config->item('number', 'twilio');
             $to = $phone;
-            $message = $otp.' is your Your Conference authentication code for FauxSKO21 login.';
+            $message = $otp.' is your authentication code for FauxSKO21 login.';
 
             $response = $this->twilio->sms($from, $to, $message);
 

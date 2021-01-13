@@ -29,7 +29,7 @@ class Register extends CI_Controller {
 
         if (!$this->config->item('smtp_user', 'email_config'))
         {
-            header('location:' . base_url() . 'register?msg=E&error=email_config_does_not_exist'); //Some Error
+            header('location:' . base_url() . 'register?msg=E'); //Some Error
         }
 
         $result = $this->objregister->add_customer();
@@ -69,21 +69,23 @@ class Register extends CI_Controller {
             $result = $this->email->send();
 
 
-            $session = array(
-                'cid' => $user_details->cust_id,
-                'cname' => $user_details->first_name,
-                'fullname' => $user_details->first_name . ' ' . $user_details->last_name,
-                'email' => $user_details->email,
-                'token' => $token,
-                'userType' => 'user'
-            );
-            $this->session->set_userdata($session);
-            redirect('home');
-           // header('location:' . base_url() . 'register/user_profile/' . $result); //Register Success
+//            $session = array(
+//                'cid' => $user_details->cust_id,
+//                'cname' => $user_details->first_name,
+//                'fullname' => $user_details->first_name . ' ' . $user_details->last_name,
+//                'email' => $user_details->email,
+//                'token' => $token,
+//                'userType' => 'user'
+//            );
+//            $this->session->set_userdata($session);
+            header('location:' . base_url() . 'register?msg=Done'); //Done
         }
     }
 
     public function user_profile($reg_id) {
+        if ($reg_id != $this->session->userdata('cid'))
+            header('location:' . base_url() . 'login');
+
         $data["myprofile"] = $this->objregister->get_user_profile_details($reg_id);
         $data["cms_details"] = $this->objregister->get_cms_details(1);
         $this->load->view('header');
@@ -92,8 +94,12 @@ class Register extends CI_Controller {
     }
 
     public function update_user() {
+
+        if ($this->input->post()['cust_id'] != $this->session->userdata('cid'))
+            header('location:' . base_url() . 'login');
+
         $cust_id = $this->objregister->update_user();
-        header('location:' . base_url() . 'register/plan_pricing/' . $cust_id);
+        header('location:' . base_url() . 'register/user_profile/' . $cust_id."?status=success");
     }
 
     public function plan_pricing($cust_id) {

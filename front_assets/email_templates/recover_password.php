@@ -1,8 +1,8 @@
 <?php
-$otp = "(OTP not generated)";
+$link = "(Link not generated)";
 
-if (isset($_GET['otp']) && $_GET['otp'] != '')
-    $otp = $_GET['otp'];
+if (isset($_GET['link']) && $_GET['link'] != '')
+    $link = $_GET['link'];
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -247,15 +247,16 @@ if (isset($_GET['otp']) && $_GET['otp'] != '')
 <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 40px; padding-left: 40px; padding-top: 10px; padding-bottom: 10px; font-family: Tahoma, sans-serif"><![endif]-->
 <div style="color:#555555;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.2;padding-top:10px;padding-right:40px;padding-bottom:10px;padding-left:40px;">
 <div style="line-height: 1.2; font-size: 12px; color: #555555; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 14px;">
-<p style="font-size: 30px; line-height: 1.2; text-align: center; word-break: break-word; mso-line-height-alt: 36px; margin: 0;"><span style="font-size: 30px; color: #2b303a;"><strong>Login Authentication Code<br/></strong></span></p>
+<p style="font-size: 30px; line-height: 1.2; text-align: center; word-break: break-word; mso-line-height-alt: 36px; margin: 0;"><span style="font-size: 30px; color: #2b303a;"><strong>Recover Your Password<br/></strong></span></p>
 </div>
 </div>
 <!--[if mso]></td></tr></table><![endif]-->
 <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 40px; padding-left: 40px; padding-top: 10px; padding-bottom: 10px; font-family: Tahoma, sans-serif"><![endif]-->
 <div style="color:#555555;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.5;padding-top:10px;padding-right:40px;padding-bottom:10px;padding-left:40px;">
 <div style="line-height: 1.5; font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #555555; mso-line-height-alt: 18px;">
-<p style="font-size: 18px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 27px; margin: 0;"><span style="font-size: 18px; color: #000080;"><strong><?=$otp?> </strong></span><span style="color: #808389; font-size: 15px;"><span style="font-size: 17px; mso-ansi-font-size: 18px;">is your authentication code for FauxSKO21 login.</span><br/></span></p>
-<p style="font-size: 17px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 27px; margin: 0;"><span style="color: #808389; font-size: 15px;"><span style="font-size: 17px; mso-ansi-font-size: 18px;">Use this code to verify your identity for logging into this event.</span><br/></span></p>
+<p style="font-size: 18px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 27px; margin: 0;"><span style="color: #808389; font-size: 15px;"><span style="font-size: 17px; mso-ansi-font-size: 18px;">Please click on the following link to recover your password.</span><br/></span></p>
+<p style="font-size: 17px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 27px; margin: 0;"><span style="color: #808389; font-size: 15px;"><span style="font-size: 17px; mso-ansi-font-size: 18px;"><a href="<?=$link?>" target="_blank"><?=$link?></a></span><br/></span></p>
+<p style="font-size: 15px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 27px; margin: 0;"><span style="color: #808389; font-size: 15px;"><span style="font-size: 13px; mso-ansi-font-size: 18px;">(if the link doesn't work, please manually copy-paste it into your browser.)</span><br/></span></p>
 </div>
 </div>
 <!--[if mso]></td></tr></table><![endif]-->
