@@ -23,7 +23,7 @@
 <!--        <img class="" src="--><?//= base_url() ?><!--front_assets/images/FAUXSKO21/Forescout_Logo_CCPage.png">-->
     </header>
 
-    <main role="main" class="inner cover" style="background-color: #1da2e38f;padding: 0;">
+    <main role="main" class="inner cover" style="background-color: #1da2e3f0;padding: 0;">
 <!--        <h1 class="cover-heading">Faux SKO Sales Kickoff 2021</h1>-->
         <img src="<?=base_url()?>front_assets/images/FAUXSKO21/FauxSKO_Featured_Image.png" style="width: 100%;">
         <p class="lead" style="font-size: 2rem;">We will miss seeing your faces,</p>
