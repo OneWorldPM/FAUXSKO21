@@ -129,7 +129,7 @@
 
                 <div class="col-md-8">
                     <div class="grpchat-margin"></div>
-                    <div class="panel panel-danger panel-cco">
+                    <div class="panel panel-danger panel-cco" style="background-color: #ffffff70;">
 
                         <div class="panel-heading">
                             <span class="panel-title">
