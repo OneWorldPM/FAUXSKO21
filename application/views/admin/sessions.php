@@ -216,7 +216,7 @@ switch ($msg) {
                         }
                     });
                 }
-            });
+            }).set({title:"Are you sure?"});
         });
         
 <?php if (isset($msg) && isset($t) && isset($m)): ?>
