@@ -15,6 +15,7 @@ $user_role = $this->session->userdata('role');
         <!-- start: DYNAMIC TABLE -->
         <div class="container-fluid container-fullw">
             <div class="row">
+                <form name="add_sessions_frm" id="add_sessions_frm" action="<?= isset($sessions_edit) ? base_url() . "admin/sessions/updateSessions" : base_url() . "admin/sessions/createSessions" ?>" method="POST" enctype="multipart/form-data">
                 <div class="col-md-6">
                     <div class="panel panel-primary" id="panel5">
                         <div class="panel-heading">
@@ -22,7 +23,6 @@ $user_role = $this->session->userdata('role');
                         </div>
                         <div class="panel-body bg-white" style="border: 1px solid #b2b7bb!important;">
                             <div class="col-md-12">
-                                <form name="add_sessions_frm" id="add_sessions_frm" action="<?= isset($sessions_edit) ? base_url() . "admin/sessions/updateSessions" : base_url() . "admin/sessions/createSessions" ?>" method="POST" enctype="multipart/form-data">
                                     <?php if (isset($sessions_edit)) { ?>
                                         <input type="hidden" name="sessions_id" id="session_title" value="<?= $sessions_edit->sessions_id ?>">
                                     <?php } ?>
@@ -249,7 +249,6 @@ $user_role = $this->session->userdata('role');
                                                 <button type="submit" id="btn_sessions" name="btn_sessions" class="btn btn-green add-row">Submit</button>
                                             </h5>
                                         </div>
-                                </form>
                             </div>
                         </div>
                     </div>
@@ -361,6 +360,8 @@ $user_role = $this->session->userdata('role');
                 </div>
 
             </div>
+
+                </form>
         </div>
     </div>
 </div>
