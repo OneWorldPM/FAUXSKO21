@@ -438,14 +438,11 @@ $user_role = $this->session->userdata('role');
                                     } else if ($("#time_slot").val() == "") {
             alertify.error("Enter Time Slot");
     return false;
-                                        } else if ($("#embed_html_code").val() == "") {
-            alertify.error("Enter Embed HTML Code");
-    return false;
                                         }else if(sum == 0){
             alertify.error("Please Add presenter");
     return false;
                                     }else if(sum > 15){
-            alertify.error("Maximum add 15 Presenter");
+            alertify.error("Maximum 15 Presenter");
     return false;
                                             } else {
             return true;
