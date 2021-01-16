@@ -24,7 +24,7 @@ $user_role = $this->session->userdata('role');
                         <div class="panel-body bg-white" style="border: 1px solid #b2b7bb!important;">
                             <div class="col-md-12">
                                     <?php if (isset($sessions_edit)) { ?>
-                                        <input type="hidden" name="sessions_id" id="session_title" value="<?= $sessions_edit->sessions_id ?>">
+                                        <input type="hidden" name="sessions_id" id="sessions_id" value="<?= $sessions_edit->sessions_id ?>">
                                     <?php } ?>
                                     <div class="form-group">
                                         <label class="text-large text-bold">Sessions Title</label>
@@ -46,13 +46,13 @@ $user_role = $this->session->userdata('role');
                                     </div>
 
                                     <hr style="border: 2px solid;">
-                                      <div class="form-group" <?=($user_role != 'super_admin')?'style="display:none"':''?>>
+                                      <div class="form-group">
                                         <label class="text-large text-bold">Zoom Meeting Link</label>
-                                        <input type="text" name="zoom_link" id="zoom_link" value="<?= (isset($sessions_edit) && !empty($sessions_edit) ) ? $sessions_edit->zoom_link : "" ?>" class="form-control" placeholder="Zoom Meeting Link" <?=($user_role != 'super_admin')?'readonly':''?>>
+                                        <input type="text" name="zoom_link" id="zoom_link" value="<?= (isset($sessions_edit) && !empty($sessions_edit) ) ? $sessions_edit->zoom_link : "" ?>" class="form-control" placeholder="Zoom Meeting Link">
                                     </div>
-                                    <div class="form-group" <?=($user_role != 'super_admin')?'style="display:none"':''?>>
+                                    <div class="form-group">
                                         <label class="text-large text-bold">Password</label>
-                                        <input type="text" name="zoom_password" id="zoom_password" value="<?= (isset($sessions_edit) && !empty($sessions_edit) ) ? $sessions_edit->zoom_password : "" ?>" class="form-control" placeholder="Password" <?=($user_role != 'super_admin')?'readonly':''?>>
+                                        <input type="text" name="zoom_password" id="zoom_password" value="<?= (isset($sessions_edit) && !empty($sessions_edit) ) ? $sessions_edit->zoom_password : "" ?>" class="form-control" placeholder="Password">
                                     </div>
 
                                     <hr style="border: 2px solid;">
@@ -450,19 +450,22 @@ $user_role = $this->session->userdata('role');
                                                 return false;
                                                 });
                                                 
-                                                $(document).on("click", ".btn_remove_presenter", function () {
-            var sessions_add_presenter_id = $(this).attr("data-sessions_add_presenter_id");
-    $.ajax({
-    url: "<?= base_url() ?>admin/sessions/remove_presenter_by_session",
+    $(document).on("click", ".btn_remove_presenter", function () {
+        var sessions_add_presenter_id = $(this).attr("data-sessions_add_presenter_id");
+
+        $.ajax({
+            url: "<?= base_url() ?>admin/sessions/remove_presenter_by_session",
             type: "post",
-             data: {'sessions_add_presenter_id': sessions_add_presenter_id,'sessions_id':$("#sessions_id").val()},
-                                                dataType: "json",
-                                                success: function (data) {
-                    if (data.status == "success") {
-            location.reload();
-                                                }
-                                                }
-                                                });
-                                            });
-                                        });
+            data: {'sessions_add_presenter_id': sessions_add_presenter_id,'sessions_id':$("#sessions_id").val()},
+            dataType: "json",
+            success: function (data) {
+                if (data.status == "success") {
+                    location.reload();
+                }
+            }
+        });
+    });
+
+
+    });
 </script>
