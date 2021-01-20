@@ -26,6 +26,10 @@
             text-align: center !important;
         }
     }
+
+    .home-menu-icon:hover{
+        color: #55c7ff !important;
+    }
 </style>
 
 <nav class="navbar navbar-expand-lg navbar-light">
@@ -70,25 +74,43 @@
 <body style="background-color: #002f70;">
 
 <div class="container">
-    <div class="jumbotron" style="background-color: #002f7000;">
-        <img src="<?=base_url()?>front_assets/images/FAUXSKO21/SKO_2021_WebHero_1920w.png" style="width: 100%;height: auto;">
+    <div class="jumbotron" style="background-color: #002f7000;padding-bottom: 0rem;padding-top: 0rem;">
+        <img src="<?=base_url()?>front_assets/images/FAUXSKO21/FauxSKO_Featured_Image.png" style="width: 100%;height: auto;">
     </div>
 
-    <div class="row text-center">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="padding:56.25% 0 0 0;">
+                <iframe src="https://player.vimeo.com/video/492170037?title=0&byline=0&portrait=0" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" ></iframe>
+            </div>
+            <script src="https://player.vimeo.com/api/player.js"></script>
+        </div>
+    </div>
 
-        <div class="col-md-6">
-            <div style="border: 1px solid white;border-radius: 25px;padding: 10px;margin-bottom: 10px;cursor: pointer;" onclick="location.href='<?= base_url() ?>sessions'">
-                <i class="fas fa-chalkboard-teacher" style="font-size: 125px !important; color: #009ce9;"></i>
-                <div style="margin-top: 15px;color: white;font-size: 25px;">SESSIONS</div>
+    <div class="row text-center" style="margin-top: 30px;">
+
+        <div class="col-md-4">
+            <div style="border-radius: 25px;padding: 10px;margin-bottom: 10px;cursor: pointer;" onclick="location.href='<?= base_url() ?>sessions'">
+                <i class="fas fa-chalkboard-teacher home-menu-icon" style="font-size: 95px !important; color: #009ce9;"></i>
+                <div style="margin-top: 15px;color: white;font-size: 20px;">SESSIONS</div>
             </div>
         </div>
 
-        <div class="col-md-6">
-            <div style="border: 1px solid white;border-radius: 25px;padding: 10px;margin-bottom: 10px;cursor: pointer;" onclick="location.href='<?= base_url() ?>lounge'">
-                <i class="fas fa-couch" style="font-size: 125px !important; color: #009ce9;"></i>
-                <div style="margin-top: 15px;color: white;font-size: 25px;">LOUNGE</div>
+        <div class="col-md-4">
+            <div style="border-radius: 25px;padding: 10px;margin-bottom: 10px;cursor: pointer;" onclick="location.href='<?= base_url() ?>lounge'">
+                <i class="fas fa-couch home-menu-icon" style="font-size: 95px !important; color: #009ce9;"></i>
+                <div style="margin-top: 15px;color: white;font-size: 20px;">LOUNGE</div>
             </div>
         </div>
+
+        <div class="col-md-4">
+            <div style="border-radius: 25px;padding: 10px;margin-bottom: 10px;cursor: pointer;" onclick="location.href='/support'">
+                <i class="fas fa-cog home-menu-icon" style="font-size: 95px !important; color: #009ce9;"></i>
+                <div style="margin-top: 15px;color: white;font-size: 20px;">SUPPORT</div>
+            </div>
+        </div>
+
+
 
 <!--        <div class="col-md-4">-->
 <!--            <div style="border: 1px solid white;border-radius: 25px;padding: 10px;margin-bottom: 10px;cursor: pointer;" onclick="location.href='base_url() ?>sponsor'">-->
@@ -99,20 +121,23 @@
 
     </div>
 
-    <div class="row text-center">
-        <div class="col-md-6 text-right">
-            <div class="text-center" style="border: 1px solid white;border-radius: 25px;padding: 10px;margin-bottom:5px;width: 175px;display: inline-block;cursor: pointer;">
-                <i class="fas fa-info-circle" style="font-size: 95px !important; color: #009ce9;"></i>
-                <div style="margin-top: 15px;color: white;font-size: 20px;">INFORMATION</div>
-            </div>
-        </div>
-        <div class="col-md-6 text-left">
-            <div class="text-center" style="border: 1px solid white;border-radius: 25px;padding: 10px;margin-bottom:5px;width: 175px;display: inline-block;cursor: pointer;" onclick="location.href='/support'">
-                <i class="fas fa-cog" style="font-size: 95px !important; color: #009ce9;"></i>
-                <div style="margin-top: 15px;color: white;font-size: 20px;">SUPPORT</div>
-            </div>
-        </div>
-    </div>
+<!--    <div class="row text-center">-->
+<!---->
+<!--        <div class="col-md-6 text-right">-->
+<!--            <div class="text-center" style="border: 1px solid white;border-radius: 25px;padding: 10px;margin-bottom:5px;width: 175px;display: inline-block;cursor: pointer;">-->
+<!--                <i class="fas fa-info-circle" style="font-size: 95px !important; color: #009ce9;"></i>-->
+<!--                <div style="margin-top: 15px;color: white;font-size: 20px;">INFORMATION</div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!---->
+<!--        <div class="col-md-12">-->
+<!--            <div class="text-center" style="border-radius: 25px;padding: 10px;margin-bottom:5px;width: 175px;display: inline-block;cursor: pointer;" onclick="location.href='/support'">-->
+<!--                <i class="fas fa-cog" style="font-size: 95px !important; color: #009ce9;"></i>-->
+<!--                <div style="margin-top: 15px;color: white;font-size: 20px;">SUPPORT</div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!---->
+<!--    </div>-->
 
 </div> <!-- /container -->
 
