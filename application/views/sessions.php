@@ -68,6 +68,7 @@
                 <div class="col-md-12 m-t-50" style="text-align: -webkit-center;">
                     <?php
                     if (isset($all_sessions_week) && !empty($all_sessions_week)) {
+                        $day = 1;
                         foreach ($all_sessions_week as $val) {
                             ?>
                             <div class="col-md-4 col-sm-12" style="margin-bottom:30px;">
@@ -83,12 +84,14 @@
                                         <?php } else { ?>
                                             <div class="col-lg box-home text-center">
                                             <?php } ?>
-                                            <label style="margin-bottom: 20px; margin-top: 20px;   font-size: 30px; font-weight: 700;"><?= $val->dayname ?></label><br>
-                                            <label><?= date('M-d-Y', strtotime($val->sessions_date)); ?></label>
+                                                <label style="margin-bottom: 20px; margin-top: 20px;   font-size: 30px; font-weight: 700;">Day <?=$day?></label>
+<!--                                            <label style="margin-bottom: 20px; margin-top: 20px;   font-size: 30px; font-weight: 700;"><?//= $val->dayname ?></label><br>-->
+<!--                                            <label><?//= date('M-d-Y', strtotime($val->sessions_date)); ?></label>-->
                                         </div>
                                 </a>
                             </div>
                             <?php
+                            $day++;
                         }
                     }
                     ?>
