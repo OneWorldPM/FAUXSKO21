@@ -22,17 +22,24 @@ class Sessions extends CI_Controller {
     }
 
     public function index() {
-        $data["all_sessions_week"] = $this->objsessions->getSessionsWeekData();
+
+        //$data["all_sessions_week"] = $this->objsessions->getSessionsWeekData();
+        $data["all_sessions_week"] = $this->objsessions->getSessionsDays();
+
         if (!empty($data["all_sessions_week"])) {
             $data["all_sessions"] = $this->objsessions->getsessions_data($data["all_sessions_week"][0]->sessions_date);
         }
+
         $this->load->view('header');
         $this->load->view('sessions', $data);
         $this->load->view('footer');
     }
 
     public function getsessions_data($date) {
-        $data["all_sessions_week"] = $this->objsessions->getSessionsWeekData();
+
+        //$data["all_sessions_week"] = $this->objsessions->getSessionsWeekData();
+        $data["all_sessions_week"] = $this->objsessions->getSessionsDays();
+
         $data["all_sessions"] = $this->objsessions->getsessions_data($date);
         $this->load->view('header');
         $this->load->view('sessions', $data);

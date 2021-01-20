@@ -25,6 +25,19 @@ class M_sessions extends CI_Model {
         }
     }
 
+    function getSessionsDays() {
+        $this->db->select("s.sessions_date,DAYNAME(s.sessions_date) as dayname");
+        $this->db->from("sessions s");
+        $this->db->group_by('dayname');
+        $this->db->order_by("s.sessions_date", "asc");
+        $result = $this->db->get();
+        if ($result->num_rows() > 0) {
+            return $result->result();
+        } else {
+            return '';
+        }
+    }
+
     function getSessionsWeekData() {
         $this->db->select("s.sessions_date,DAYNAME(s.sessions_date) as dayname");
         $this->db->from("sessions s");
