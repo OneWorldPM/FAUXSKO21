@@ -89,23 +89,67 @@ $user_role = $this->session->userdata('role');
                                                                             </select>
                                                                         </div>-->
                                     <div class="form-group" <?=($user_role != 'super_admin')?'style="display:none"':''?>>
-                                        <label class="text-large text-bold">Session Date</label>
+                                        <label class="text-large text-bold">Session Date (US/Pacific)</label>
                                         <input class="form-control <?=($user_role != 'super_admin')?'':'datepicker'?>" name="sessions_date" id="sessions_date" type="text" value="<?= (isset($sessions_edit) && !empty($sessions_edit)) ? date('m/d/Y', strtotime($sessions_edit->sessions_date)) : "" ?>" <?=($user_role != 'super_admin')?'readonly':''?>>
                                     </div>
                                     <div class="row" <?=($user_role != 'super_admin')?'style="display:none"':''?>>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="text-large text-bold">Session Start Time<?= (isset($sessions_edit) && !empty($sessions_edit) ) ? '<b>(US/Pacific)</b>' : '' ?></label>
+                                                <label class="text-large text-bold">Session Start Time (US/Pacific)</label>
                                                 <input type="time" name="time_slot" id="time_slot" value="<?= (isset($sessions_edit) && !empty($sessions_edit)) ? date('H:i', strtotime($sessions_edit->time_slot)) : "" ?>" class="form-control" <?=($user_role != 'super_admin')?'readonly':''?>>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="text-large text-bold">Session End Time <?= (isset($sessions_edit) && !empty($sessions_edit) ) ? '<b>(US/Pacific)</b>' : '' ?></label>
+                                                <label class="text-large text-bold">Session End Time (US/Pacific)</label>
                                                 <input type="time" name="end_time" id="end_time" value="<?= (isset($sessions_edit) && !empty($sessions_edit)) ? date('H:i', strtotime($sessions_edit->end_time)) : "" ?>" class="form-control" <?=($user_role != 'super_admin')?'readonly':''?>>
                                             </div>
                                         </div>
                                     </div>
+
+                                    <hr style="border: 2px solid;"/>
+
+                                <div class="form-group" <?=($user_role != 'super_admin')?'style="display:none"':''?>>
+                                    <label class="text-large text-bold">Session Date Display (US/EMEA)</label>
+                                    <input class="form-control <?=($user_role != 'super_admin')?'':'datepicker'?>" name="sessions_date_display_us_emea" id="sessions_date_display_us_emea" type="text" value="<?= (isset($sessions_edit->sessions_date_display_us_emea) && !empty($sessions_edit->sessions_date_display_us_emea)) ? date('m/d/Y', strtotime($sessions_edit->sessions_date_display_us_emea)) : "" ?>" <?=($user_role != 'super_admin')?'readonly':''?>>
+                                </div>
+                                <div class="row" <?=($user_role != 'super_admin')?'style="display:none"':''?>>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="text-large text-bold">Session Start Time Display (US/EMEA)</label>
+                                            <input type="time" name="start_time_display_us_emea" id="start_time_display_us_emea" value="<?= (isset($sessions_edit->start_time_display_us_emea) && !empty($sessions_edit->start_time_display_us_emea)) ? date('H:i', strtotime($sessions_edit->start_time_display_us_emea)) : "" ?>" class="form-control" <?=($user_role != 'super_admin')?'readonly':''?>>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="text-large text-bold">Session End Time Display(US/EMEA)</label>
+                                            <input type="time" name="end_time_display_us_emea" id="end_time_display_us_emea" value="<?= (isset($sessions_edit->end_time_display_us_emea) && !empty($sessions_edit->end_time_display_us_emea)) ? date('H:i', strtotime($sessions_edit->end_time_display_us_emea)) : "" ?>" class="form-control" <?=($user_role != 'super_admin')?'readonly':''?>>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" <?=($user_role != 'super_admin')?'style="display:none"':''?>>
+                                    <label class="text-large text-bold">Session Date Display (APJ)</label>
+                                    <input class="form-control <?=($user_role != 'super_admin')?'':'datepicker'?>" name="sessions_date_display_apj" id="sessions_date_display_apj" type="text" value="<?= (isset($sessions_edit->sessions_date_display_apj) && !empty($sessions_edit->sessions_date_display_apj)) ? date('m/d/Y', strtotime($sessions_edit->sessions_date_display_apj)) : "" ?>" <?=($user_role != 'super_admin')?'readonly':''?>>
+                                </div>
+                                <div class="row" <?=($user_role != 'super_admin')?'style="display:none"':''?>>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="text-large text-bold">Session Start Time Display (APJ)</label>
+                                            <input type="time" name="start_time_display_apj" id="start_time_display_apj" value="<?= (isset($sessions_edit->start_time_display_apj) && !empty($sessions_edit->start_time_display_apj)) ? date('H:i', strtotime($sessions_edit->start_time_display_apj)) : "" ?>" class="form-control" <?=($user_role != 'super_admin')?'readonly':''?>>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="text-large text-bold">Session End Time Display(APJ)</label>
+                                            <input type="time" name="end_time_display_apj" id="end_time_display_apj" value="<?= (isset($sessions_edit->end_time_display_apj) && !empty($sessions_edit->end_time_display_apj)) ? date('H:i', strtotime($sessions_edit->end_time_display_apj)) : "" ?>" class="form-control" <?=($user_role != 'super_admin')?'readonly':''?>>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                    <hr style="border: 2px solid;"/>
+
                                     <div class="form-group" <?=($user_role != 'super_admin')?'style="display:none"':''?>>
                                         <label class="text-large text-bold">Millicast Stream Name</label>
                                         <input type="text" class="form-control" style="color: #000;" name="embed_html_code" id="embed_html_code" value="<?= (isset($sessions_edit) && !empty($sessions_edit) ) ? $sessions_edit->embed_html_code : "" ?>" <?=($user_role != 'super_admin')?'readonly':''?>>
