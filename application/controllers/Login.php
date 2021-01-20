@@ -411,7 +411,12 @@ class Login extends CI_Controller {
 
         if ($method == 'sms')
         {
-            if (isset($this->input->post()['mobile_no']) && $this->input->post()['mobile_no'] != null && $this->input->post()['mobile_no'] != '' )
+            if (
+                isset($this->input->post()['mobile_no']) &&
+                $this->input->post()['mobile_no'] != null &&
+                $this->input->post()['mobile_no'] != '' &&
+                is_numeric(trim($this->input->post()['mobile_no']," "))
+            )
             {
                 $phone = "+".$this->input->post()['mobile_country_code'].$this->input->post()['mobile_no'];
 
