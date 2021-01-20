@@ -90,7 +90,7 @@
                 </div>
 
                 <div class="container-login100-form-btn">
-                    <button type="button" class="login100-form-btn">
+                    <button id="login-btn" class="login100-form-btn" disabled>
                         Login
                     </button>
                 </div>

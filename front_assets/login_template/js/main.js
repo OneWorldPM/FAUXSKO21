@@ -416,6 +416,10 @@
         });
 
     });
+
+
+
+    $('#login-btn').prop('disabled', false);
     
 
 })(jQuery);
