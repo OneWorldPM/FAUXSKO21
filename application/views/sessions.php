@@ -59,6 +59,10 @@
         background-color: #002f70;
         color: #fff !important;
     }
+
+    p {
+        margin-bottom: 5px !important;
+    }
 </style>
 <section class="parallax" style="top: 0; padding-top: 0px;">
 <!--<section class="parallax" style="background-image: url(<?= base_url() ?>front_assets/images/Sessions_BG_screened.jpg); top: 0; padding-top: 0px;">-->
@@ -132,10 +136,10 @@
                                                 }
                                                 ?>
                                                 <div class="post-description">
-                                                    <p style="margin-bottom: 10px;"><?= $val->sessions_description ?></p>
-                                                    <a class="button black-light button-3d rounded right" style="margin: 0px 0;background-color: #002f70;" href="<?= base_url() ?>sessions/attend/<?= $val->sessions_id ?>"><span>Attend</span></a>
+                                                    <?= $val->sessions_description ?>
                                                 </div>
                                             </div>
+                                            <a class="button black-light button-3d rounded right" style="margin: 0px 0;background-color: #002f70;" href="<?= base_url() ?>sessions/attend/<?= $val->sessions_id ?>"><span>Attend</span></a>
                                         </div>
                                         <?php
                                     }

@@ -427,21 +427,24 @@ $user_role = $this->session->userdata('role');
             var sum = 0;
     $(".select_presenter_id").each(function () {
     sum += 1;
-                                                                                                                                                                                                        });
-                                                                                                                                                                                                        if ($("#session_title").val() == "")
-                                            {
+    });
+    if ($("#session_title").val() == "")
+    {
             alertify.error("Enter Sessions Title");
     return false;
-                                                                            } else if ($("#sessions_date").val() == "") {
+    } else if ($("#sessions_date").val() == "") {
             alertify.error("Select Date");
     return false;
                                     } else if ($("#time_slot").val() == "") {
             alertify.error("Enter Time Slot");
     return false;
-                                        }else if(sum == 0){
-            alertify.error("Please Add presenter");
-    return false;
-                                    }else if(sum > 15){
+                                        }
+    // else if(sum == 0){
+    //         alertify.error("Please Add presenter");
+    // return false;
+    // }
+
+    else if(sum > 15){
             alertify.error("Maximum 15 Presenter");
     return false;
                                             } else {
@@ -467,5 +470,14 @@ $user_role = $this->session->userdata('role');
     });
 
 
+    });
+</script>
+
+<script src="https://cdn.tiny.cloud/1/dljtk0vn0if4aqtf6d1q72pyd2hedl1x6aqv37yukbb2n02h/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: '#sessions_description',
+        height : "300",
+        theme_advanced_font_sizes : "10px,12px,14px,16px,24px"
     });
 </script>
