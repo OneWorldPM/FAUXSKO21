@@ -380,8 +380,8 @@ if (isset($sessions)) {
     var user_id = "<?=$this->session->userdata('cid')?>";
     var app_name = "<?=getAppName($sessions->sessions_id) ?>";
     var session_id = "<?=$sessions->sessions_id?>";
-    var session_start_datetime =  new Date("<?= date('M d, yy', strtotime($sessions->sessions_date)) . ' ' . $sessions->time_slot ?>");
-    var session_end_datetime =  new Date("<?= date('M d, yy', strtotime($sessions->sessions_date)) . ' ' . $sessions->end_time ?>");
+    var session_start_datetime =  new Date("<?= date('M d, Y', strtotime($sessions->sessions_date)) . ' ' . $sessions->time_slot ?>");
+    var session_end_datetime =  new Date("<?= date('M d, Y', strtotime($sessions->sessions_date)) . ' ' . $sessions->end_time ?>");
 </script>
 <?= getSocketScript()?>
 <script src="<?= base_url() ?>front_assets/js/custom-fullscreen.js?v=2"></script>
