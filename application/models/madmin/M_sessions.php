@@ -138,9 +138,15 @@ class M_sessions extends CI_Model {
         } else {
             $moderator_id = "";
         }
+
+        if (!empty($post['select_presenter_id'])) {
+            $presenter_id = implode(",", $post['select_presenter_id']);
+        } else {
+            $presenter_id = "";
+        }
 		
         $set = array(
-            'presenter_id' => implode(",", $post['select_presenter_id']),
+            'presenter_id' => $presenter_id,
 			'moderator_id' => $moderator_id,
             'session_title' => trim($post['session_title']),
             'sessions_description' => trim($post['sessions_description']),
@@ -306,15 +312,21 @@ class M_sessions extends CI_Model {
             $moderator_id = "";
         }
 		
- if (!empty($post['moderator_id'])) {
+        if (!empty($post['moderator_id'])) {
             $moderator_id = implode(",", $post['moderator_id']);
         } else {
             $moderator_id = "";
         }
 
+        if (!empty($post['select_presenter_id'])) {
+            $presenter_id = implode(",", $post['select_presenter_id']);
+        } else {
+            $presenter_id = "";
+        }
+
 		
         $set = array(
-            'presenter_id' => implode(",", $post['select_presenter_id']),
+            'presenter_id' => $presenter_id,
 			'moderator_id' => $moderator_id,
             'session_title' => trim($post['session_title']),
             'cco_envent_id' => trim($post['cco_envent_id']),
