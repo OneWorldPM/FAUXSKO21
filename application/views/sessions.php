@@ -1,3 +1,13 @@
+<?php
+if (isset($_GET['testing']))
+{
+    echo "<pre>";
+    print_r($all_sessions);
+    echo "</pre>";
+    exit;
+}
+?>
+
 <style>
     body{
         background-image: url(<?= base_url() ?>front_assets/images/FAUXSKO21/3_ForescoutSKO_SessionsPage.png);
@@ -123,9 +133,9 @@
 
                                                 <div class="post-title">
                                                     <h6 style="font-weight: 600">
-                                                        <span style="color: #b97a43;">US/EMEA <?= $val->sessions_date_display_us_emea . ' ' . date("h:i A", strtotime($val->start_time_display_us_emea)) . ' - ' . date("h:i A", strtotime($val->end_time_display_us_emea)) ?> PT</span>
+                                                        <span style="color: #b97a43;">US/EMEA <?= $val->sessions_date_display_us_emea . ' ' . date("h:i A", strtotime($val->start_time_display_us_emea))?> <?=($val->sessions_type_id == 1)?'':' - ' . date("h:i A", strtotime($val->end_time_display_us_emea)) ?> PT</span>
                                                          /
-                                                        <span style="color: #358080;">APJ <?= $val->sessions_date_display_apj . ' ' . date("h:i A", strtotime($val->start_time_display_apj)) . ' - ' . date("h:i A", strtotime($val->end_time_display_apj)) ?> AEDT</span>
+                                                        <span style="color: #358080;">APJ <?= $val->sessions_date_display_apj . ' ' . date("h:i A", strtotime($val->start_time_display_apj))?> <?=($val->sessions_type_id == 1)?'':' - ' . date("h:i A", strtotime($val->end_time_display_apj)) ?> AEDT</span>
                                                     </h6>
                                                     <h3><a href="<?= base_url() ?>sessions/attend/<?= $val->sessions_id ?>" style="color: #0048ac; font-weight: 900;"><?= $val->session_title ?></a></h3>
                                                 </div>
