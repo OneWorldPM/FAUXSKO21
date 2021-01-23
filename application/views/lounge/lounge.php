@@ -96,8 +96,16 @@
         }
     }
 </style>
-<section class="parallax">
+<section class="parallax" style="padding-top: 15px;">
     <div class="container container-fullscreen" id="home_first_section">
+
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2 style="color: #e6e6e6;margin-bottom: 5px;font-weight: bold;font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;">Welcome to the FAUX SKO Lounge!</h2>
+                <h3 style="color: #e6e6e6;margin-bottom: 5px;font-weight: bold;font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;">Utilize this Lounge for engagement with your peers. Jump into the group chat or send a one-off message to a colleague.</h3>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-md-12" style="text-align: -webkit-center; text-align: -moz-center; margin-left: 45px;">
                 <div class="col-md-4">
@@ -134,9 +142,9 @@
                         <div class="panel-heading">
                             <span class="panel-title">
                                 Attendees
-                                <button type="button" class="lounge-meetings-btn btn btn-success btn-xs pull-right">
-                                    <i class="fa fa-calendar" aria-hidden="true"></i> Meetings
-                                </button>
+<!--                                <button type="button" class="lounge-meetings-btn btn btn-success btn-xs pull-right">-->
+<!--                                    <i class="fa fa-calendar" aria-hidden="true"></i> Meetings-->
+<!--                                </button>-->
                             </span>
                         </div>
 

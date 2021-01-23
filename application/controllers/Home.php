@@ -9,13 +9,14 @@ class Home extends CI_Controller {
         parent::__construct();
         $this->common->set_timezone();
         $login_type = $this->session->userdata('userType');
+
         if ($login_type != 'user') {
-            redirect('login');
+            redirect('login/logout');
         }
 		 if ($this->session->userdata('cid') != "100028") {
         $get_user_token_details = $this->common->get_user_details($this->session->userdata('cid'));
         if ($this->session->userdata('token') != $get_user_token_details->token) {
-            redirect('login');
+            redirect('login/logout');
         }
 		 }
     }

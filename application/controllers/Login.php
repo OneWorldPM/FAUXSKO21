@@ -17,6 +17,13 @@ class Login extends CI_Controller {
         $login_type = $this->session->userdata('userType');
         if ($login_type == 'user') {
             redirect('home');
+        }else{
+            $this->session->unset_userdata('cid');
+            $this->session->unset_userdata('cname');
+            $this->session->unset_userdata('fullname');
+            $this->session->unset_userdata('email');
+            $this->session->unset_userdata('token');
+            $this->session->unset_userdata('userType');
         }
 
         $this->load->view('landing-page');

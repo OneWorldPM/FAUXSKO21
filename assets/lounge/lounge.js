@@ -568,6 +568,8 @@ $(function() {
     }
 
     function active_change_asc_sort(a, b){
+        if (!$.browser.mozilla)
+            return active_change_dec_sort(a, b);
         return ($(b).attr('status')) < ($(a).attr('status')) ? 1 : -1;
     }
     function active_change_dec_sort(a, b){

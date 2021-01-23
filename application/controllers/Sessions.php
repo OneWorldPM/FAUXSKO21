@@ -521,4 +521,31 @@ class Sessions extends CI_Controller {
         }
     }
 
+    public function getImmediateMeeting()
+    {
+        $this->db->select('*');
+        $this->db->from('sessions');
+        $this->db->where(array('sessions_date'=>date("Y-m-d"), 'end_time >= '=>date("H:i:s")));
+        $this->db->order_by("time_slot", "asc");
+        $response = $this->db->get();
+
+        if ($response->num_rows() > 0)
+        {
+            $session = $response->result_array()[0];
+
+            $time = ($session['sessions_type_id'] == 1)?$session['end_time']:$session['time_slot'];
+            $datetime = $session['sessions_date'] . ' ' . $time;
+            $datetime = date("Y-m-d H:i", strtotime($datetime));
+            $datetime = new DateTime($datetime);
+            $datetime1 = new DateTime();
+            $remaining_seconds = $datetime->getTimestamp() - $datetime1->getTimestamp();
+
+            echo json_encode(array('status'=>true, 'session'=>$session, 'remaining_seconds'=>$remaining_seconds) );
+        }else{
+            echo json_encode(array('status'=>false));
+        }
+
+        return;
+    }
+
 }

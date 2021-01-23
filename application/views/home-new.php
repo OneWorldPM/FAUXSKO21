@@ -61,7 +61,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="<?= base_url() ?>register/user_profile/<?= $profile_data->cust_id ?>"><i class="fas fa-user-edit"></i> Edit Profile</a>
-                    <a class="dropdown-item" href="<?= base_url() ?>home/notes"><i class="fas fa-briefcase"></i> My Briefcase</a>
+<!--                    <a class="dropdown-item" href="--><?//= base_url() ?><!--home/notes"><i class="fas fa-briefcase"></i> My Briefcase</a>-->
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="<?= base_url() ?>login/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 </div>
@@ -152,6 +152,9 @@
 <script src="<?=base_url()?>front_assets/login_template/vendor/bootstrap/js/ie10-viewport-bug-workaround.js"></script>
 <script src="https://kit.fontawesome.com/fd91b3535c.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" integrity="sha512-v8ng/uGxkge3d1IJuEo6dJP8JViyvms0cly9pnbfRxT6/31c3dRWxIiwGnMSWwZjHKOuY3EVmijs7k1jz/9bLA==" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 </body>
 
 <script>
@@ -220,6 +223,66 @@
         $('.msg-mark-all-read').on('click', function () {
             markAllAsRead();
         });
+
+
+        /************ Auto redirect to next zoom meeting ***************/
+        $.ajax({
+            url: "<?= base_url() ?>sessions/getImmediateMeeting",
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+
+                if (data.session.zoom_redirect == 1)
+                {
+                    var zoom_meet_rem_seconds = data.remaining_seconds;
+
+                    if (data.remaining_seconds <= 0) {
+                        Swal.fire(
+                            data.session.session_title,
+                            'You will be redirected the Zoom meeting in 60 seconds <br>' +
+                            '<a href="'+data.session.zoom_redirect_url+'" target="_blank">Please click here to go there now.</a>',
+                            'info'
+                        );
+                        setTimeout(function () {
+                            window.open(data.session.zoom_redirect_url, "_blank") || window.location.replace(data.session.zoom_redirect_url);
+                        }, 60000);
+
+                    } else if(data.remaining_seconds <= 60) {
+                        Swal.fire(
+                            data.session.session_title,
+                            'You will be redirected the Zoom meeting in 60 seconds <br>' +
+                            '<a href="'+data.session.zoom_redirect_url+'" target="_blank">Please click here to go there now.</a>',
+                            'info'
+                        );
+                        setTimeout(function () {
+                            window.open(data.session.zoom_redirect_url, "_blank") || window.location.replace(data.session.zoom_redirect_url);
+                        }, 60000);
+
+                    }else {
+                        setInterval(function () {
+
+                            if (data.remaining_seconds == 60) {
+                                Swal.fire(
+                                    data.session.session_title,
+                                    'You will be redirected the Zoom meeting in 60 seconds <br>' +
+                                    '<a href="'+data.session.zoom_redirect_url+'" target="_blank">Please click here to go there now.</a>',
+                                    'info'
+                                );
+                            }
+
+                            if (data.remaining_seconds <= 0) {
+
+                                window.open(data.session.zoom_redirect_url, "_blank") || window.location.replace(data.session.zoom_redirect_url);
+
+                            } else {
+                                data.remaining_seconds--;
+                            }
+                        }, 1000);
+                    }
+                }
+            }
+        });
+        /************ End of auto redirect to next zoom meeting ***************/
     });
 
     function fillUnreadMessages() {

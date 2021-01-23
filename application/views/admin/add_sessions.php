@@ -177,6 +177,26 @@ $user_role = $this->session->userdata('role');
                                         }
                                         ?>
                                     </div>
+
+                                <div class="row" <?=($user_role != 'super_admin')?'style="display:none"':''?>>
+                                    <label class="col-md-12 text-large text-bold">Zoom Redirect</label>
+                                    <div class="form-group col-md-6" style="color: #000;">
+                                        <input type="radio" class="col-md-1"  name="zoom_redirect"  id="zoom_redirect_on" <?=(isset($sessions_edit->zoom_redirect) && $sessions_edit->zoom_redirect == "1") ?'checked':''?> value="1">ON<br>
+                                    </div>
+                                    <div class="form-group col-md-6" style="color: #000;">
+                                        <input type="radio" class="col-md-1"  name="zoom_redirect"  id="zoom_redirect_off" <?=(isset($sessions_edit->zoom_redirect) && $sessions_edit->zoom_redirect == "0") ?'checked':''?>  value="0">OFF<br>
+                                    </div>
+
+                                    <div class="col-md-12" id="url_section">
+                                        <div class="form-group">
+                                            <label class="text-large text-bold">Redirect URL(must be prefixed with http or https)</label>
+                                            <input type="text" name="zoom_redirect_url" id="zoom_redirect_url" value="<?= (isset($sessions_edit->zoom_redirect_url) && !empty($sessions_edit->zoom_redirect_url) ) ? $sessions_edit->zoom_redirect_url : "" ?>" class="form-control" placeholder="Zoom redirect url">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                    <hr style="border: 2px solid;"/>
                                     <div class="row" <?=($user_role != 'super_admin')?'style="display:none"':''?>>
                                         <label class="col-md-12 text-large text-bold">Select Sessions Tracks</label>
                                         <?php

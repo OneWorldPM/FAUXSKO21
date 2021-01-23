@@ -374,6 +374,17 @@ if (isset($sessions)) {
 
 </div>
 
+
+<?php
+$session_end_time = $sessions->end_time;
+$datetime = $sessions->sessions_date . ' ' . $session_end_time;
+$datetime = date("Y-m-d H:i", strtotime($datetime));
+$datetime = new DateTime($datetime);
+$datetime1 = new DateTime();
+$remaining_seconds = $datetime->getTimestamp() - $datetime1->getTimestamp();
+
+?>
+
 <script>
     var base_url = "<?=base_url()?>";
     var site_url = "<?= site_url() ?>";
@@ -382,6 +393,13 @@ if (isset($sessions)) {
     var session_id = "<?=$sessions->sessions_id?>";
     var session_start_datetime =  new Date("<?= date('M d, Y', strtotime($sessions->sessions_date)) . ' ' . $sessions->time_slot ?>");
     var session_end_datetime =  new Date("<?= date('M d, Y', strtotime($sessions->sessions_date)) . ' ' . $sessions->end_time ?>");
+
+    var session_type_id = "<?=$sessions->sessions_type_id?>";
+    var zoom_redirect = "<?=$sessions->zoom_redirect?>";
+    var zoom_redirect_url = "<?=$sessions->zoom_redirect_url?>";
+    var remaining_seconds = "<?=$remaining_seconds?>";
+
+
 </script>
 <?= getSocketScript()?>
 <script src="<?= base_url() ?>front_assets/js/custom-fullscreen.js?v=2"></script>

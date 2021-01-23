@@ -1029,3 +1029,28 @@ function calcTime(offset) {
 
     return nd;
 }
+
+
+/****************** Zoom redirect after the session *********************/
+var seconds = remaining_seconds;
+function zoom_redirect_timer()
+{
+    if (seconds <= 0) {
+
+        if (session_type_id == 1 && zoom_redirect == 1)
+        {
+            window.open(zoom_redirect_url, "_blank") || window.location.replace(zoom_redirect_url);
+        }
+
+    } else {
+        seconds--;
+    }
+}
+$(document).ready(function () {
+    if (seconds <= 0) {
+        zoom_redirect_timer();
+    } else {
+        setInterval('zoom_redirect_timer()', 1000);
+    }
+});
+/************* End of Zoom redirect after the session ******************/

@@ -31,7 +31,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group col-md-3">
-                                    <input type="file" id="profile" name="profile" class="form-control">
+                                    <input type="file" id="profile" name="profile" class="form-control" accept=".jpg,.jpeg,.png">
                                     <small class="form-text text-muted">Add a photo to personalize your account</small>
                                     <span id="errorprofile" style="color:red"></span>
                                 </div>

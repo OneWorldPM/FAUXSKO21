@@ -19,7 +19,7 @@ $presenter_details = $this->common->get_presenter_data($this->session->userdata(
     <meta content="" name="description" />
     <meta content="" name="author" />
     <!-- end: META -->
-    <link rel="icon" href="<?= base_url() ?>assets/images/favicon.png" type="image/png">
+    <link rel="icon" href="<?= base_url() ?>front_assets/images/FAUXSKO21/fauxsko_icon_transparent.png" type="image/png">
     <!-- start: GOOGLE FONTS -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/googlefonts.css">
     <!--<link href="https://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />-->

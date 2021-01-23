@@ -1,3 +1,12 @@
+<?php
+if (isset($_GET['testing']))
+{
+    echo "<pre>";
+    print_r($sessions);
+    echo "</pre>";
+    exit;
+}
+?>
 <style>
     body{
         background-image: url(<?= base_url() ?>front_assets/images/FAUXSKO21/Forescout_FAUXSKO21_Lounge_Page_Mockup.png);
@@ -164,6 +173,10 @@
     </div>
 </div>
 <script type="text/javascript">
+    let session_type_id = "<?=$sessions->sessions_type_id?>";
+    let zoom_redirect = "<?=$sessions->zoom_redirect?>";
+    let zoom_redirect_url = "<?=$sessions->zoom_redirect_url?>";
+
     $(document).ready(function () {
         if ($("#time_second").val() <= 0) {
             timer();
@@ -186,7 +199,8 @@
     // console.log($("#time_second").val())
     var upgradeTime = $("#time_second").val();
     var seconds = upgradeTime;
-    function timer() {
+    function timer()
+    {
         var days = Math.floor(seconds / 24 / 60 / 60);
         var hoursLeft = Math.floor((seconds) - (days * 86400));
         var hours = Math.floor(hoursLeft / 3600);
@@ -220,11 +234,18 @@
         }
         document.getElementById('id_day_time').innerHTML = pad(days) + " " + days_lable + ", " + pad(hours) + " " + hours_lable + ", " + pad(minutes) + " " + minutes_lable + ", " + pad(remainingSeconds) + " " + remainingSeconds_lable;
         if (seconds <= 0) {
-            window.location = "<?= site_url() ?>sessions/view/<?= (isset($sessions) && !empty($sessions)) ? $sessions->sessions_id : "" ?>";
-                    } else {
-                        seconds--;
-                    }
-                }
+
+            if (session_type_id == 16 && zoom_redirect == 1)
+            {
+                window.open(zoom_redirect_url, "_blank") || window.location.replace(zoom_redirect_url);
+            }else{
+                window.location = "<?= site_url() ?>sessions/view/<?= (isset($sessions) && !empty($sessions)) ? $sessions->sessions_id : "" ?>";
+            }
+
+        } else {
+            seconds--;
+        }
+    }
 </script>
 <script type="text/javascript">
     $(document).ready(function () {
